@@ -1,0 +1,19 @@
+.container { min-height: 100vh; background: #f4f7f9; padding-bottom: 50rpx; }
+
+/* 机构招牌 */
+.school-header { background: #673AB7; padding: 60rpx 40rpx 80rpx; border-bottom-left-radius: 40rpx; border-bottom-right-radius: 40rpx; color: #fff; }
+.school-name { font-size: 48rpx; font-weight: bold; margin-bottom: 20rpx; }
+.school-tags .tag { font-size: 22rpx; background: rgba(255,255,255,0.2); padding: 4rpx 16rpx; border-radius: 20rpx; margin-right: 15rpx; }
+
+/* 核心服务区 */
+.service-section { margin: -40rpx 30rpx 0; background: #fff; border-radius: 20rpx; padding: 40rpx 30rpx; box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.05); position: relative; z-index: 10; }
+.section-title { font-size: 32rpx; font-weight: bold; color: #333; margin-bottom: 30rpx; }
+.grid-box { display: flex; justify-content: space-between; }
+.grid-item { display: flex; flex-direction: column; align-items: center; width: 30%; }
+.icon-circle { width: 100rpx; height: 100rpx; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40rpx; margin-bottom: 16rpx; box-shadow: 0 6rpx 16rpx rgba(0,0,0,0.1); }
+.bg-purple { background: linear-gradient(135deg, #E1BEE7, #CE93D8); }
+.bg-orange { background: linear-gradient(135deg, #FFE0B2, #FFB74D); }
+.bg-green { background: linear-gradient(135deg, #C8E6C9, #81C784); }
+.item-text { font-size: 26rpx; color: #555; font-weight: bold; }
+
+.footer-hint { text-align: center; font-size: 22rpx; color: #ccc; margin-top: 80rpx; }

@@ -1,0 +1,123 @@
+<view class="quest-container">
+
+<view wx:if="{{step === 'dashboard'}}" class="dashboard-state">
+  <view class="header-board">
+    <view class="user-greeting">今日词汇集训，准备好了吗？</view>
+    <view class="stats-row">
+      <view class="stat-box">
+        <text class="num">{{totalLearned || 0}}</text>
+        <text class="label">已掌握词汇</text>
+      </view>
+      <view class="stat-box">
+        <text class="num">{{score || 0}}</text>
+        <text class="label">当前积分</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="task-card">
+    <view class="bank-switch">
+      <view 
+        class="switch-btn {{currentBankId === 'zhongkao' ? 'active' : ''}}" 
+        bindtap="changeBank" 
+        data-id="zhongkao">中考词库</view>
+      <view 
+        class="switch-btn {{currentBankId === 'gaokao' ? 'active' : ''}}" 
+        bindtap="changeBank" 
+        data-id="gaokao">高考词库</view>
+    </view>
+
+    <view class="book-info">
+      <view class="book-cover">📚</view>
+      <view class="book-text">
+        <view class="book-name">{{bankConfig[currentBankId].name}}</view>
+        <view class="book-progress">学习进度：{{totalLearned}} / {{bankConfig[currentBankId].total}}</view>
+      </view>
+    </view>
+    <view class="daily-goal">今日任务：学习 {{wordList.length}} 个新词</view>
+    <button class="start-btn" bindtap="startLearning">立刻开始背词</button>
+  </view>
+
+  <view class="tools-grid">
+    <view class="tool-item" bindtap="comingSoon"><view class="tool-icon">📓</view><text>错题本</text></view>
+    <view class="tool-item" bindtap="comingSoon"><view class="tool-icon">📅</view><text>打卡日历</text></view>
+    <view class="tool-item" bindtap="comingSoon"><view class="tool-icon">🏆</view><text>排行榜</text></view>
+  </view>
+</view>
+
+<view wx:if="{{step === 'learn'}}" class="learn-state">
+  <view class="top-bar">
+    <text class="progress-text">学新词 {{currentIndex + 1}} / {{wordList.length}}</text>
+    <view class="close-btn" bindtap="quitToDashboard">×</view>
+  </view>
+
+  <view class="word-card">
+    <image class="word-img" src="{{currentWord.imgUrl}}" mode="aspectFill"></image>
+    <view class="word-title">{{currentWord.word}}</view>
+    <view class="phonetic-row" bindtap="playAudio">
+      <text class="phonetic">{{currentWord.phonetic}}</text>
+      <text class="audio-icon">🔊</text>
+    </view>
+    <view class="translation" wx:if="{{showTranslation}}">{{currentWord.zh}}</view>
+    <view class="example-box" wx:if="{{showTranslation}}">
+      <view class="ex-en">{{currentWord.exEn}}</view>
+      <view class="ex-zh">{{currentWord.exZh}}</view>
+    </view>
+  </view>
+
+  <view class="action-footer">
+    <block wx:if="{{!showTranslation}}">
+      <button class="btn-think" bindtap="showAnswer">点我查看释义</button>
+    </block>
+    <block wx:else>
+      <button class="btn-red" bindtap="nextWord" data-know="false">不认识</button>
+      <button class="btn-green" bindtap="nextWord" data-know="true">认识</button>
+    </block>
+  </view>
+</view>
+
+<view wx:if="{{step === 'quiz'}}" class="quiz-state">
+  <view class="top-bar">
+    <text class="progress-text">随堂测试 {{quizIndex + 1}} / {{wordList.length}}</text>
+  </view>
+
+  <view class="quiz-card">
+    <view class="quiz-word">{{currentWord.word}}</view>
+    <view class="phonetic-row" bindtap="playAudio">
+      <text class="phonetic">{{currentWord.phonetic}}</text>
+      <text class="audio-icon">🔊</text>
+    </view>
+  </view>
+
+  <view class="options-list">
+    <view 
+      class="option-item {{quizShowResult ? (index === currentWord.correctIdx ? 'correct' : (quizSelected === index ? 'wrong' : '')) : (quizSelected === index ? 'selected' : '')}}" 
+      wx:for="{{currentWord.options}}" 
+      wx:key="index"
+      bindtap="selectOption"
+      data-index="{{index}}"
+    >
+      <text>{{item}}</text>
+    </view>
+  </view>
+
+  <view class="action-footer" wx:if="{{quizShowResult}}">
+    <button class="btn-primary" bindtap="nextQuiz">下一题</button>
+  </view>
+</view>
+
+<view wx:if="{{step === 'result'}}" class="result-state">
+  <view class="result-card">
+    <view class="result-icon">🎉</view>
+    <view class="result-title">今日任务完成！</view>
+    <view class="stats-grid">
+      <view class="stat-item"><text class="s-val">{{wordList.length}}</text><text class="s-label">学习单词</text></view>
+      <view class="stat-item"><text class="s-val">+15</text><text class="s-label">获得积分</text></view>
+    </view>
+  </view>
+  <view class="btn-group">
+    <button class="btn-primary" bindtap="finishSession">领取积分并返回</button>
+  </view>
+</view>
+
+</view>

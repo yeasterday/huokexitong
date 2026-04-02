@@ -1,0 +1,12 @@
+.container { padding: 30rpx; background: #fff; min-height: 100vh; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40rpx; }
+.title { font-size: 36rpx; font-weight: bold; color: #333; }
+.export-btn { font-size: 24rpx; background: #4CAF50; color: white; margin: 0; padding: 0 30rpx; border-radius: 10rpx; }
+
+.report-table { border: 1rpx solid #eee; border-radius: 10rpx; overflow: hidden; }
+.table-header { display: flex; background: #f8f9fa; padding: 20rpx 0; border-bottom: 1rpx solid #eee; }
+.table-row { display: flex; padding: 25rpx 0; border-bottom: 1rpx solid #f1f1f1; }
+.col { flex: 1; text-align: center; font-size: 26rpx; color: #666; }
+.table-header .col { font-weight: bold; color: #333; }
+
+.tip { margin-top: 40rpx; font-size: 22rpx; color: #ccc; text-align: center; }

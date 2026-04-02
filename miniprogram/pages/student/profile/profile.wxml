@@ -1,0 +1,117 @@
+<view class="container">
+  <view class="header-section">
+    <view class="user-info">
+      <view class="avatar-wrapper" catchtap="changeAvatar">
+        <image class="avatar-circle" src="{{userInfo.avatar || userInfo.avatarUrl}}" mode="aspectFill" wx:if="{{userInfo.avatar || userInfo.avatarUrl}}"></image>
+        <view class="avatar-circle" wx:else>👦</view>
+        <view class="edit-badge" wx:if="{{userInfo._id}}">📷</view>
+      </view>
+
+      <view class="text-info">
+        <view class="nickname-row" catchtap="{{userInfo._id ? 'openNameModal' : 'goToLogin'}}">
+          <text class="nickname">{{userInfo.nickname || userInfo.name || '点击这里登录'}}</text>
+          <text class="edit-icon" wx:if="{{userInfo._id}}">✏️</text>
+        </view>
+
+        <view class="user-id">
+          ID: {{userInfo._id ? '已认证' : '未登录'}} 
+          <block wx:if="{{userInfo._id}}">
+            <text class="tag" wx:if="{{userInfo.phone}}">已绑定手机</text>
+            <text class="tag unbound" wx:else catchtap="openPhoneModal">未绑定(领50分)</text>
+            <text class="tag" style="background:#FFD54F; color:#673AB7; border:none; font-weight:bold;" wx:if="{{userInfo.orgName}}">🚩 {{userInfo.orgName}}</text>
+          </block>
+        </view>
+      </view>
+    </view>
+    
+    <view class="vip-card-enhanced">
+      <view class="vip-content">
+        <view class="vip-top">
+          <view class="vip-title">青水SaaS专属会员</view>
+          <view class="vip-status">未开通</view>
+        </view>
+        <view class="vip-middle">
+          <view class="benefit-item"><text class="icon">📚</text>专享课程</view>
+          <view class="benefit-item"><text class="icon">✨</text>积分2倍</view>
+          <view class="benefit-item"><text class="icon">🛍️</text>商城折扣</view>
+        </view>
+        <view class="vip-bottom">
+          <view class="vip-hint">开通即享全站VIP特权，学习更高效</view>
+          <view class="vip-btn" bindtap="comingSoon">立即开通</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="boss-entrance" wx:if="{{userInfo.role === 'teacher'}}" bindtap="goToDashboard">
+      <text>📊 进入盟主数据大盘</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <view class="assets-section">
+    <view class="asset-item" bindtap="goToMyFollows">
+      <view class="asset-num">💖</view>
+      <view class="asset-name">我的关注</view>
+    </view>
+    <view class="asset-item" bindtap="comingSoon">
+      <view class="asset-num">{{score || 0}}</view>
+      <view class="asset-name">脑力积分</view>
+    </view>
+    <view class="checkin-wrap">
+      <view class="checkin-btn {{hasCheckedIn ? 'disabled' : ''}}" bindtap="doCheckIn">
+        <text class="c-icon">{{hasCheckedIn ? '✅' : '🎁'}}</text>
+        <text>{{hasCheckedIn ? '今日已领' : '签到+5分'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="module-section">
+    <view class="module-title">我的资产 <text class="title-more" bindtap="goToOrders">查看全部订单 ></text></view>
+    <view class="grid-wrap">
+      <view class="grid-item" bindtap="goToShop"><view class="grid-icon-box bg-blue"><text>🛍️</text></view><view class="grid-text">积分商城</view></view>
+      <view class="grid-item" bindtap="goToOrders"><view class="grid-icon-box bg-orange"><text>📜</text></view><view class="grid-text">我的订单</view></view>
+      <view class="grid-item" bindtap="goToMyPage"><view class="grid-icon-box bg-green"><text>🏠</text></view><view class="grid-text">我的主页</view></view>
+      <view class="grid-item" bindtap="goToMessages"><view class="grid-icon-box bg-yellow"><text>🔔</text></view><view class="grid-text">消息通知</view></view>
+      <view class="grid-item" bindtap="comingSoon"><view class="grid-icon-box bg-purple"><text>🔄</text></view><view class="grid-text">退款/售后</view></view>
+    </view>
+  </view>
+
+  <view class="module-section">
+    <view class="module-title">学习工具</view>
+    <view class="grid-wrap">
+      <view class="grid-item" bindtap="goToRank"><view class="grid-icon-box bg-red"><text>🏆</text></view><view class="grid-text">封神榜单</view></view>
+      <view class="grid-item" bindtap="goToPet"><view class="grid-icon-box bg-teal"><text>🐲</text></view><view class="grid-text">智宠空间</view></view>
+      <view class="grid-item" bindtap="goToMyBag"><view class="grid-icon-box bg-indigo"><text>🎒</text></view><view class="grid-text">我的书包</view></view>
+      <view class="grid-item" bindtap="goToPoster"><view class="grid-icon-box bg-pink"><text>🖼️</text></view><view class="grid-text">战绩海报</view></view>
+    </view>
+  </view>
+  
+  <view class="logout-section" wx:if="{{userInfo._id}}">
+    <view class="logout-btn" bindtap="logout">退出登录</view>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showPhoneModal}}">
+    <view class="modal-content">
+      <view class="modal-title">身份安全绑定</view>
+      <view class="modal-desc">绑定手机号，立刻获得 50 积分！</view>
+      <input class="phone-input" type="number" placeholder="请输入11位手机号" maxlength="11" model:value="{{phoneNumber}}" />
+      <view class="modal-btns">
+        <view class="cancel-btn" bindtap="closePhoneModal">取消</view>
+        <view class="confirm-btn" bindtap="savePhone">立即绑定</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showNameModal}}">
+    <view class="modal-content">
+      <view class="modal-title">修改花名/昵称</view>
+      <view class="modal-desc">取一个响亮的江湖称号吧！</view>
+      <input class="phone-input" type="text" placeholder="请输入新昵称" maxlength="15" model:value="{{newNickname}}" />
+      <view class="modal-btns">
+        <view class="cancel-btn" bindtap="closeNameModal">取消</view>
+        <view class="confirm-btn" bindtap="saveNickname">保存修改</view>
+      </view>
+    </view>
+  </view>
+
+</view>

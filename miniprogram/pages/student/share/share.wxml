@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="poster-card">
+    <view class="card-header-bg"></view>
+    
+    <view class="card-body">
+      <view class="user-section">
+        <view class="avatar-wrapper">
+          <image class="user-avatar" src="{{userInfo.avatar}}"></image>
+          <view class="badge">Lv.{{level}}</view>
+        </view>
+        <view class="user-info">
+          <text class="user-name">{{userInfo.name}}</text>
+          <text class="user-status">已坚持自律 {{days}} 天</text>
+        </view>
+      </view>
+
+      <view class="achievement-display">
+        <view class="ach-label">闯关战绩</view>
+        <view class="ach-value">{{level}} <text class="unit">关</text></view>
+        <view class="ach-rank">超越全校 <text class="highlight">98%</text> 的同学</view>
+      </view>
+
+      <view class="dashed-line"></view>
+
+      <view class="footer-section">
+        <view class="school-info">
+          <view class="school-tag">官方认证机构</view>
+          <text class="school-name">{{userInfo.schoolName}}</text>
+        </view>
+        <view class="qr-wrapper">
+          <image class="qr-code-pro" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Qingshui_SaaS_Demo"></image>
+          <text class="qr-hint">扫码加入挑战</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="action-area">
+    <button class="save-btn-pro" bindtap="savePoster">保存并分享我的战报</button>
+    <text class="action-tip">分享到朋友圈，领取 100 积分奖励</text>
+  </view>
+</view>

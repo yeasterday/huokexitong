@@ -1,0 +1,119 @@
+.container {
+  background: #2D2D2D;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 海报主卡片 */
+.poster-card {
+  width: 620rpx;
+  background: #FFFFFF;
+  border-radius: 40rpx;
+  overflow: hidden;
+  box-shadow: 0 30rpx 80rpx rgba(0,0,0,0.4);
+}
+
+.card-header-bg {
+  height: 160rpx;
+  background: linear-gradient(135deg, #673AB7, #9C27B0);
+}
+
+.card-body {
+  padding: 0 50rpx 50rpx;
+  margin-top: -80rpx; /* 头像半悬浮效果 */
+}
+
+/* 用户区样式 */
+.user-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50rpx;
+}
+.avatar-wrapper {
+  position: relative;
+  margin-bottom: 20rpx;
+}
+.user-avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  border: 8rpx solid #FFFFFF;
+  box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.1);
+}
+.badge {
+  position: absolute;
+  bottom: 0;
+  right: -10rpx;
+  background: #FF9800;
+  color: #fff;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+}
+.user-name { font-size: 36rpx; font-weight: bold; color: #333; }
+.user-status { font-size: 24rpx; color: #999; margin-top: 6rpx; }
+
+/* 成就展示区 */
+.achievement-display {
+  text-align: center;
+  background: #F8F6FF;
+  padding: 40rpx;
+  border-radius: 30rpx;
+  margin-bottom: 40rpx;
+}
+.ach-label { font-size: 26rpx; color: #673AB7; opacity: 0.8; }
+.ach-value { font-size: 80rpx; font-weight: 800; color: #673AB7; margin: 10rpx 0; }
+.unit { font-size: 28rpx; font-weight: normal; }
+.ach-rank { font-size: 24rpx; color: #666; }
+.highlight { color: #FF5722; font-weight: bold; }
+
+.dashed-line {
+  border-top: 2rpx dashed #EEE;
+  margin-bottom: 40rpx;
+}
+
+/* 底部引流区 */
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.school-tag {
+  font-size: 18rpx;
+  background: #673AB7;
+  color: #fff;
+  padding: 4rpx 10rpx;
+  border-radius: 4rpx;
+  display: inline-block;
+  margin-bottom: 10rpx;
+}
+.school-name { font-size: 26rpx; font-weight: bold; color: #333; display: block; }
+
+.qr-wrapper { text-align: center; }
+.qr-code-pro {
+  width: 130rpx;
+  height: 130rpx;
+  margin-bottom: 10rpx;
+}
+.qr-hint { font-size: 18rpx; color: #999; }
+
+/* 底部按钮 */
+.action-area { margin-top: 60rpx; text-align: center; }
+.save-btn-pro {
+  width: 500rpx;
+  background: linear-gradient(135deg, #673AB7, #9C27B0);
+  color: #fff;
+  border-radius: 50rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 15rpx 30rpx rgba(103, 58, 183, 0.4);
+}
+.action-tip { font-size: 22rpx; color: #888; margin-top: 20rpx; display: block; }

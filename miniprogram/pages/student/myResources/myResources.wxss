@@ -1,0 +1,20 @@
+.container { min-height: 100vh; background: #f8f9fb; padding-bottom: 50rpx; }
+
+.header { background: #673AB7; padding: 60rpx 40rpx 80rpx; color: #fff; border-radius: 0 0 40rpx 40rpx; }
+.title { display: block; font-size: 44rpx; font-weight: bold; margin-bottom: 10rpx; }
+.subtitle { font-size: 24rpx; opacity: 0.8; }
+
+.loading-state { text-align: center; margin-top: 100rpx; color: #999; font-size: 28rpx; }
+
+.empty-state { display: flex; flex-direction: column; align-items: center; margin-top: 150rpx; color: #999; font-size: 28rpx; }
+.empty-icon { font-size: 100rpx; margin-bottom: 20rpx; }
+
+.resource-list { padding: 0 30rpx; margin-top: -40rpx; }
+.resource-card { background: #fff; border-radius: 20rpx; padding: 30rpx; margin-bottom: 30rpx; box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.05); }
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20rpx; }
+.r-type { background: rgba(103,58,183,0.1); color: #673AB7; font-size: 22rpx; padding: 4rpx 12rpx; border-radius: 8rpx; }
+.r-time { font-size: 22rpx; color: #4CAF50; font-weight: bold; }
+.r-title { font-size: 30rpx; color: #333; font-weight: bold; line-height: 1.5; margin-bottom: 30rpx; }
+.card-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 2rpx dashed #eee; padding-top: 20rpx; }
+.r-points { font-size: 24rpx; color: #999; }
+.copy-btn { background: #FFD54F; color: #333; font-size: 24rpx; font-weight: bold; padding: 12rpx 30rpx; border-radius: 30rpx; box-shadow: 0 4rpx 10rpx rgba(255,213,79,0.4); }

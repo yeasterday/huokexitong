@@ -1,0 +1,14 @@
+page { background: #f4f6f9; font-family: -apple-system, sans-serif; }
+.login-container { padding: 60rpx; display: flex; flex-direction: column; min-height: 100vh; justify-content: center; margin-top: -100rpx; }
+
+.logo-box { text-align: center; margin-bottom: 80rpx; }
+.logo-text { font-size: 56rpx; font-weight: 900; color: #673AB7; letter-spacing: 4rpx; margin-bottom: 16rpx; }
+.logo-sub { font-size: 26rpx; color: #999; letter-spacing: 2rpx; }
+
+.form-box { background: #fff; padding: 60rpx 40rpx; border-radius: 40rpx; box-shadow: 0 15rpx 40rpx rgba(103,58,183,0.08); }
+.input-field { height: 100rpx; background: #f8f9fb; border-radius: 20rpx; padding: 0 40rpx; margin-bottom: 40rpx; font-size: 30rpx; color: #333; }
+
+.login-btn { background: linear-gradient(135deg, #673AB7, #9C27B0); color: #fff; border-radius: 50rpx; height: 100rpx; line-height: 100rpx; font-size: 34rpx; font-weight: bold; margin-top: 20rpx; box-shadow: 0 10rpx 20rpx rgba(103,58,183,0.3); transition: transform 0.1s; }
+.login-btn:active { transform: scale(0.98); }
+
+.register-link { text-align: center; font-size: 28rpx; color: #673AB7; margin-top: 50rpx; font-weight: bold; }

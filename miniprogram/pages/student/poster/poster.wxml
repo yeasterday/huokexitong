@@ -1,0 +1,12 @@
+<view class="poster-container">
+  
+  <view class="canvas-box">
+    <canvas type="2d" id="posterCanvas" class="poster-canvas"></canvas>
+    
+    <image wx:if="{{posterImg}}" src="{{posterImg}}" class="preview-img" mode="aspectFit" show-menu-by-longpress="true"></image>
+  </view>
+
+  <button class="save-btn" bindtap="saveToAlbum">保存海报，发朋友圈</button>
+  <view class="tips">晒出好成绩，还能帮校长赚积分哦！</view>
+
+</view>

@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="school-header">
+    <view class="school-name">{{schoolName}}</view>
+    <view class="school-tags">
+      <text class="tag">优质机构</text>
+      <text class="tag">官方认证</text>
+    </view>
+  </view>
+
+  <view class="service-section">
+    <view class="section-title">核心服务</view>
+    <view class="grid-box">
+      <view class="grid-item" bindtap="goToQuestMap">
+        <view class="icon-circle bg-purple">🎯</view>
+        <view class="item-text">打卡闯关</view>
+      </view>
+      
+      <view class="grid-item" bindtap="goToCourseList">
+        <view class="icon-circle bg-orange">📚</view>
+        <view class="item-text">精品课程</view>
+      </view>
+
+      <view class="grid-item" bindtap="comingSoon">
+        <view class="icon-circle bg-green">🏆</view>
+        <view class="item-text">积分商城</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-hint">青水SaaS 提供技术支持</view>
+</view>

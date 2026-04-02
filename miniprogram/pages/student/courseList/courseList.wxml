@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="course-list" wx:if="{{courses.length > 0}}">
+    <view class="course-card" wx:for="{{courses}}" wx:key="_id">
+      <image class="course-cover" src="{{item.cover}}" mode="aspectFill"></image>
+      
+      <view class="course-info">
+        <view class="course-title">{{item.title}}</view>
+        
+        <view class="course-bottom">
+          <text class="course-price">¥{{item.price}}</text>
+          <view class="buy-btn" bindtap="buyCourse" data-id="{{item._id}}">立即抢购</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{courses.length === 0 && !isLoading}}">
+    <view class="empty-text">校长正在快马加鞭录制课程中...</view>
+  </view>
+</view>

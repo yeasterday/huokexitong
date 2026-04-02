@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="header-card">
+    <view class="points-val">商城仓库管理</view>
+    
+    <view class="add-btn" bindtap="goToAdd">
+      <text class="plus-icon">+</text> 上架商品
+    </view>
+
+    <view class="bg-deco-1"></view>
+    <view class="bg-deco-2"></view>
+  </view>
+
+  <view class="module-box">
+    <view class="module-title">我的商品仓库</view>
+    <view class="item-list">
+      
+      <view class="empty-tip" wx:if="{{itemList.length === 0}}">仓库空空如也，快去上架商品吧！</view>
+
+      <view class="item-card" wx:for="{{itemList}}" wx:key="_id">
+        <view class="item-main">
+          <text class="item-icon">🎁</text> 
+          <view class="item-info">
+            <text class="item-name">{{item.name}}</text>
+            <view class="tag-row">
+              <text class="tag-price">{{item.price}} 积分</text>
+              <text class="tag-category">{{item.category}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="delete-btn" bindtap="deleteItem" data-id="{{item._id}}">下架</view>
+      </view>
+    </view>
+  </view>
+</view>

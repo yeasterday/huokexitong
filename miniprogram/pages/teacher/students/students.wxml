@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="tool-bar">
+    <view class="search-box">
+      <icon type="search" size="16"></icon>
+      <input placeholder="搜索学员姓名" bindinput="onSearch" />
+    </view>
+    <button wx:if="{{isDemo}}" class="inject-btn" bindtap="injectData">一键注入学霸</button>
+  </view>
+
+  <view class="count-tag">共 {{students.length}} 位学员</view>
+
+  <scroll-view scroll-y class="list-view">
+    <view class="student-card" wx:for="{{students}}" wx:key="_id">
+      <image class="avatar" src="{{item.avatar || '/images/default-avatar.png'}}"></image>
+      <view class="info">
+        <view class="name-row">
+          <text class="name">{{item.name}}</text>
+          <text class="grade-tag">{{item.grade}}</text>
+        </view>
+        <view class="detail">积分：{{item.points || 0}} | 闯关：第 {{item.level || 1}} 关</view>
+      </view>
+      <view class="status {{item.active ? 'active' : ''}}">
+        {{item.active ? '今日已打卡' : '未打卡'}}
+      </view>
+    </view>
+    
+    <view class="empty-box" wx:if="{{students.length === 0}}">
+      <image src="/images/empty.png" mode="aspectFit"></image>
+      <text>暂无学员，请点击上方注入数据</text>
+    </view>
+  </scroll-view>
+</view>

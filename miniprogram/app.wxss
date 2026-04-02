@@ -1,0 +1,17 @@
+/* app.wxss 全局样式表 */
+
+/* 给所有的页面容器统一加上底部安全区距离，防止被 iPhone 底部的黑条遮挡 */
+.container {
+  /* 苹果官方推荐的安全区适配写法 */
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom)); 
+  box-sizing: border-box; 
+}
+
+/* 让全局的所有文字都看起来更柔和、更清晰 */
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+    sans-serif;
+  /* 页面底色统一用高级灰，这样各个页面的代码里就不需要重复写了 */
+  background-color: #f4f7f9; 
+}

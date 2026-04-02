@@ -1,0 +1,29 @@
+page { background: #f4f6f9; padding-bottom: 100rpx;}
+.profile-header { background: #673AB7; padding: 60rpx 0 80rpx; display: flex; flex-direction: column; align-items: center; color: #fff; border-radius: 0 0 40rpx 40rpx; margin-bottom: 30rpx;}
+.p-avatar { width: 140rpx; height: 140rpx; border-radius: 50%; border: 6rpx solid rgba(255,255,255,0.3); margin-bottom: 20rpx; }
+.p-name { font-size: 36rpx; font-weight: bold; margin-bottom: 10rpx; }
+.p-role { font-size: 24rpx; background: rgba(0,0,0,0.2); padding: 4rpx 16rpx; border-radius: 20rpx; }
+
+.empty-tip { text-align: center; color: #999; margin-top: 100rpx; }
+.moment-list { padding: 0 30rpx; }
+.moment-item { background: #fff; border-radius: 20rpx; padding: 30rpx; margin-bottom: 30rpx; }
+.m-text { font-size: 30rpx; color: #333; margin-bottom: 20rpx; line-height: 1.5; }
+.m-images { display: flex; flex-wrap: wrap; gap: 10rpx; margin-bottom: 20rpx; }
+.m-img { width: 180rpx; height: 180rpx; border-radius: 8rpx; background: #eee; }
+
+.m-footer { display: flex; justify-content: space-between; align-items: center; }
+.m-time { font-size: 24rpx; color: #999; }
+.m-actions { display: flex; gap: 30rpx; align-items: center;}
+.action-btn { display: flex; align-items: center; color: #666; font-size: 28rpx; }
+.action-num { margin-left: 8rpx; font-size: 24rpx; }
+.delete-btn { font-size: 22rpx; color: #F44336; padding: 6rpx 16rpx; background: #ffebee; border-radius: 10rpx; font-weight: bold;}
+
+/* 评论区样式 */
+.comment-area { background: #f5f6f8; padding: 16rpx 20rpx; border-radius: 12rpx; margin-top: 24rpx; }
+.comment-item { font-size: 26rpx; line-height: 1.6; margin-bottom: 8rpx; word-break: break-all; }
+.c-name { color: #5C6BC0; font-weight: bold; }
+.c-content { color: #333; }
+.comment-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: transparent; z-index: 99; }
+.comment-input-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; padding: 20rpx 30rpx; padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.05); display: flex; align-items: center; z-index: 100; box-sizing: border-box; }
+.c-input { flex: 1; background: #f4f6f9; height: 72rpx; border-radius: 36rpx; padding: 0 30rpx; font-size: 28rpx; }
+.c-send-btn { width: 140rpx; height: 72rpx; line-height: 72rpx; text-align: center; background: #673AB7; color: #fff; font-size: 28rpx; border-radius: 36rpx; margin-left: 20rpx; font-weight: bold; }

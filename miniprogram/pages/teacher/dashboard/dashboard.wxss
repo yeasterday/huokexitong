@@ -1,0 +1,121 @@
+page { 
+  background: #f4f7f9; 
+  font-family: -apple-system, sans-serif;
+}
+.dashboard-container { 
+  padding: 30rpx; 
+}
+
+/* 顶部数据看板 */
+.header-card { 
+  background: linear-gradient(135deg, #4A148C, #673AB7); 
+  border-radius: 30rpx; 
+  padding: 40rpx; 
+  color: #fff; 
+  margin-bottom: 40rpx; 
+  box-shadow: 0 15rpx 40rpx rgba(103,58,183,0.3); 
+}
+.org-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50rpx;
+  border-bottom: 2rpx solid rgba(255,255,255,0.1);
+  padding-bottom: 30rpx;
+}
+.org-name { 
+  font-size: 36rpx; 
+  font-weight: 900; 
+}
+.org-status { 
+  font-size: 24rpx; 
+  background: rgba(0,0,0,0.2);
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.data-grid { 
+  display: flex; 
+  justify-content: space-between; 
+}
+.data-item { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+}
+.data-num { 
+  font-size: 60rpx; 
+  font-weight: bold; 
+  margin-bottom: 10rpx; 
+  text-shadow: 0 4rpx 10rpx rgba(0,0,0,0.1);
+}
+.data-label { 
+  font-size: 24rpx; 
+  opacity: 0.8; 
+}
+
+/* 模块面板 */
+.module-box { 
+  background: #fff; 
+  border-radius: 30rpx; 
+  padding: 40rpx 30rpx; 
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.02); 
+}
+.module-title { 
+  font-size: 32rpx; 
+  font-weight: bold; 
+  color: #333; 
+  margin-bottom: 40rpx; 
+}
+
+.tool-grid { 
+  display: flex; 
+  flex-wrap: wrap; 
+}
+.tool-item { 
+  width: 25%; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  margin-bottom: 30rpx; 
+}
+.tool-icon { 
+  width: 100rpx; 
+  height: 100rpx; 
+  border-radius: 30rpx; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  font-size: 44rpx; 
+  margin-bottom: 16rpx; 
+  color: #fff;
+}
+.tool-text { 
+  font-size: 24rpx; 
+  color: #666; 
+  font-weight: bold; 
+}
+
+/* 色块配置 */
+.bg-blue { background: #E3F2FD; color: #1976D2; }
+.bg-green { background: #E8F5E9; color: #388E3C; }
+.bg-orange { background: #FFF3E0; color: #F57C00; }
+.bg-purple { background: #F3E5F5; color: #7B1FA2; }
+.bg-pink { background: #FCE4EC; color: #C2185B; }
+.bg-yellow { background: #FFFDE7; color: #FBC02D; font-size: 30rpx; font-weight: 900;}
+.bg-gray { background: #F5F5F5; color: #616161; }
+
+/* 高亮裂变工具 */
+.highlight .tool-icon { 
+  background: linear-gradient(135deg, #FF416C, #FF4B2B); 
+  color: white;
+  box-shadow: 0 10rpx 20rpx rgba(255,65,108,0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

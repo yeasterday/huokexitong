@@ -1,0 +1,31 @@
+.container { min-height: 100vh; background: #f4f6f9; padding-bottom: 50rpx; }
+
+/* 顶部横幅 */
+.header-banner { background: linear-gradient(135deg, #1a1b26, #3a3f58); padding: 60rpx 40rpx 80rpx; color: #fff; border-radius: 0 0 40rpx 40rpx; box-shadow: 0 10rpx 30rpx rgba(26,27,38,0.3); }
+.title { font-size: 46rpx; font-weight: bold; margin-bottom: 10rpx; text-shadow: 0 4rpx 10rpx rgba(0,0,0,0.5); }
+.subtitle { font-size: 24rpx; color: #FFD54F; }
+
+/* 榜单列表 */
+.rank-list { padding: 0 30rpx; margin-top: -40rpx; }
+.rank-card { background: #fff; border-radius: 20rpx; padding: 30rpx; margin-bottom: 25rpx; display: flex; align-items: center; box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.04); }
+
+/* 排名数字 */
+.rank-num { width: 60rpx; font-size: 36rpx; font-weight: bold; color: #999; text-align: center; margin-right: 20rpx; font-style: italic; }
+/* 前三名专属发光样式 */
+.gold { color: #FFD700; font-size: 46rpx; text-shadow: 0 0 10rpx rgba(255,215,0,0.4); }
+.silver { color: #C0C0C0; font-size: 42rpx; text-shadow: 0 0 10rpx rgba(192,192,192,0.4); }
+.bronze { color: #CD7F32; font-size: 38rpx; text-shadow: 0 0 10rpx rgba(205,127,50,0.4); }
+
+/* 头像与信息 */
+.avatar { width: 90rpx; height: 90rpx; border-radius: 50%; margin-right: 25rpx; border: 4rpx solid #f0f0f0; }
+.placeholder { background: #eee; display: flex; justify-content: center; align-items: center; font-size: 50rpx; }
+.info { flex: 1; display: flex; flex-direction: column; }
+.nickname { font-size: 32rpx; font-weight: bold; color: #333; margin-bottom: 8rpx; }
+.pet-level { font-size: 22rpx; color: #673AB7; background: rgba(103,58,183,0.1); padding: 4rpx 12rpx; border-radius: 10rpx; align-self: flex-start; }
+
+/* 积分展示 */
+.score-box { display: flex; flex-direction: column; align-items: flex-end; }
+.score-num { font-size: 40rpx; font-weight: bold; color: #FF5722; font-family: 'Courier New', Courier, monospace; }
+.score-label { font-size: 20rpx; color: #bbb; }
+
+.empty-state { text-align: center; color: #999; margin-top: 100rpx; font-size: 28rpx; }

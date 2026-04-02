@@ -1,0 +1,16 @@
+<view class="login-container">
+  <view class="logo-box">
+    <view class="logo-text">欢迎加入</view>
+    <view class="logo-sub">注册专属学习账号</view>
+  </view>
+
+  <view class="form-box">
+    <input class="input-field" type="number" maxlength="11" placeholder="请输入11位手机号 (作为账号)" model:value="{{account}}" />
+    <input class="input-field" type="text" placeholder="设置你的花名/昵称" model:value="{{nickname}}" />
+    <input class="input-field" type="text" password="true" placeholder="设置密码 (不少于8位数)" model:value="{{password}}" />
+    
+    <input class="input-field" type="text" placeholder="机构邀请码 (选填，加入专属校区)" model:value="{{inviteCode}}" />
+    
+    <button class="login-btn" bindtap="handleRegister">注 册</button>
+  </view>
+</view>

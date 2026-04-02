@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="tabs">
+    <view class="tab active">全部兑换</view>
+  </view>
+
+  <view class="order-list">
+    <view class="empty" wx:if="{{orders.length === 0}}">
+      <text class="empty-icon">📦</text>
+      <text>还没有兑换过宝贝哦</text>
+    </view>
+
+    <view class="order-card" wx:for="{{orders}}" wx:key="_id">
+      <view class="order-head">
+        <text class="order-time">{{item.createTimeStr}}</text>
+        <text class="status-tag">{{item.status}}</text>
+      </view>
+      <view class="order-body">
+        <view class="item-info">
+          <text class="item-name">{{item.itemName}}</text>
+          <text class="item-price">消耗积分：{{item.price}}</text>
+        </view>
+      </view>
+      <view class="order-foot" wx:if="{{item.address}}">
+        <text class="address-label">配送/备注信息：</text>
+        <text class="address-text">{{item.address}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,71 @@
+<view class="stardew-container">
+  
+  <view class="wood-header">
+    <view class="name-tag" bindtap="renamePet">
+      <text class="p-name">{{pet.name || '像素神兽'}}</text>
+      <text class="p-lvl">Lv.{{pet.level}}</text>
+    </view>
+    <view class="score-box">
+      <text class="coin-icon">💰</text>
+      <text class="score-val">{{score}}</text>
+    </view>
+  </view>
+
+  <view class="farm-display">
+    <view class="paper-bg">
+      <view class="dialog-bubble" wx:if="{{dialogText}}">{{dialogText}}</view>
+      
+      <canvas type="2d" id="petCanvas" class="pixel-canvas"></canvas>
+      
+      <view class="pixel-stats">
+        <view class="p-tag jin">金:{{pet.stats.jin}}</view>
+        <view class="p-tag mu">木:{{pet.stats.mu}}</view>
+        <view class="p-tag shui">水:{{pet.stats.shui}}</view>
+        <view class="p-tag huo">火:{{pet.stats.huo}}</view>
+        <view class="p-tag tu">土:{{pet.stats.tu}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="energy-panel">
+    <view class="bar-label">修为进度 ({{pet.exp}}/{{pet.level * 100}})</view>
+    <view class="stamina-bar">
+      <view class="stamina-fill" style="width: {{expPercent}}"></view>
+    </view>
+  </view>
+
+  <view class="food-row">
+    <view class="food-item" bindtap="feedPet" data-type="jin"><view class="food-icon">⚔️</view><text>金晶</text></view>
+    <view class="food-item" bindtap="feedPet" data-type="mu"><view class="food-icon">🌱</view><text>木灵</text></view>
+    <view class="food-item" bindtap="feedPet" data-type="shui"><view class="food-icon">🌊</view><text>水精</text></view>
+    <view class="food-item" bindtap="feedPet" data-type="huo"><view class="food-icon">🔥</view><text>火核</text></view>
+    <view class="food-item" bindtap="feedPet" data-type="tu"><view class="food-icon">🪨</view><text>息壤</text></view>
+  </view>
+
+  <view class="farm-actions">
+    <view class="pixel-btn play" bindtap="playWithPet">✨ 秘境探宝</view>
+    <view class="pixel-btn bag" bindtap="openBag">🎒 乾坤袋</view>
+    <button class="pixel-btn share" open-type="share">📤 炫耀</button>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showBag}}" bindtap="closeBag">
+    <view class="bag-modal" catchtap="stopP">
+      <view class="bag-header">
+        <text class="bag-title">🎒 乾坤袋</text>
+        <text class="close-btn" bindtap="closeBag">×</text>
+      </view>
+      <scroll-view scroll-y class="bag-list">
+        <view class="empty-tip" wx:if="{{bagItems.length === 0}}">空空如也，快去兑换！</view>
+        <view class="bag-item" wx:for="{{bagItems}}" wx:key="name" bindtap="useItem" data-name="{{item.name}}">
+          <view class="item-icon">{{item.icon || '🎁'}}</view>
+          <view class="item-info">
+            <view class="item-name">{{item.name}} x{{item.count}}</view>
+            <view class="item-desc">{{item.desc}}</view>
+          </view>
+          <view class="use-btn">吸纳</view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+</view>

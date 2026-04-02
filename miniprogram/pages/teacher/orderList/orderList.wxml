@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="header">
+    <text class="title">待处理订单</text>
+    <text class="count">共 {{orders.length}} 笔</text>
+  </view>
+
+  <view class="order-list">
+    <view class="admin-card" wx:for="{{orders}}" wx:key="_id">
+      <view class="user-row">
+        <text class="user-name">👤 兑换人：{{item.nickname}}</text>
+        <text class="status-btn" bindtap="finishOrder" data-id="{{item._id}}">标记发货</text>
+      </view>
+      <view class="item-row">
+        <text class="item-title">🎁 兑换商品：{{item.itemName}}</text>
+      </view>
+      <view class="address-row">
+        <text class="addr-content">📍 信息：{{item.address}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,49 @@
+<view class="container">
+  <view class="profile-header">
+    <image class="p-avatar" src="{{targetUser.avatarUrl || targetUser.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=user'}}"></image>
+    <view class="p-name">{{targetUser.nickname || targetUser.name || '加载中...'}}</view>
+    <view class="p-role">{{isMe ? '这是我的个人主页' : 'Ta的主页'}}</view>
+  </view>
+
+  <view class="empty-tip" wx:if="{{moments.length === 0}}">这里空空如也~</view>
+
+  <view class="moment-list" wx:else>
+    <view class="moment-item" wx:for="{{moments}}" wx:key="_id">
+      <view class="m-content-area">
+        <view class="m-text">{{item.content}}</view>
+        <view class="m-images" wx:if="{{item.images.length > 0}}">
+          <image class="m-img" wx:for="{{item.images}}" wx:for-item="img" wx:key="*this" src="{{img}}" mode="aspectFill"></image>
+        </view>
+        
+        <view class="m-footer">
+          <text class="m-time">{{item.time}}</text>
+          
+          <view class="m-actions">
+            <view class="action-btn" bindtap="toggleLike" data-index="{{index}}">
+              <text>{{item.isLiked ? '❤️' : '🤍'}}</text>
+              <text class="action-num">{{item.likes || 0}}</text>
+            </view>
+            <view class="action-btn" bindtap="openComment" data-index="{{index}}">
+              <text>💬</text>
+              <text class="action-num">{{item.comments || 0}}</text>
+            </view>
+            <view class="delete-btn" wx:if="{{isMe}}" bindtap="deletePost" data-id="{{item._id}}">🗑️ 删除</view>
+          </view>
+        </view>
+
+        <view class="comment-area" wx:if="{{item.commentsList && item.commentsList.length > 0}}">
+          <view class="comment-item" wx:for="{{item.commentsList}}" wx:for-item="cmt" wx:key="time">
+            <text class="c-name">{{cmt.name}}：</text>
+            <text class="c-content">{{cmt.content}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="comment-mask" wx:if="{{showCommentInput}}" bindtap="closeComment"></view>
+  <view class="comment-input-bar" wx:if="{{showCommentInput}}">
+    <input class="c-input" focus="{{showCommentInput}}" cursor-spacing="20" placeholder="善语结善缘..." bindinput="handleCommentInput" value="{{commentContent}}" confirm-type="send" bindconfirm="sendComment" />
+    <view class="c-send-btn" bindtap="sendComment">发送</view>
+  </view>
+</view>

@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="header-banner">
+    <view class="title">🏆 青源脑力封神榜</view>
+    <view class="subtitle">全城最具智慧的 Top 20 极客</view>
+  </view>
+
+  <view class="rank-list">
+    <view class="rank-card" wx:for="{{rankList}}" wx:key="_id">
+      
+      <view class="rank-num {{index === 0 ? 'gold' : ''}} {{index === 1 ? 'silver' : ''}} {{index === 2 ? 'bronze' : ''}}">
+        {{index + 1}}
+      </view>
+
+      <image class="avatar" src="{{item.avatarUrl}}" mode="aspectFill" wx:if="{{item.avatarUrl}}"></image>
+      <view class="avatar placeholder" wx:else>👦</view>
+
+      <view class="info">
+        <view class="nickname">{{item.nickname || '神秘居民'}}</view>
+        <view class="pet-level">神兽 Lv.{{item.petLevel || 1}}</view>
+      </view>
+
+      <view class="score-box">
+        <text class="score-num">{{item.score || 0}}</text>
+        <text class="score-label">脑力值</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{rankList.length === 0}}">
+    榜单正在快马加鞭核算中...
+  </view>
+</view>

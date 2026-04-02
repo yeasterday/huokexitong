@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="empty-tip" wx:if="{{msgList.length === 0}}">
+    <view class="icon">📭</view>
+    <text>暂时没有新消息哦~</text>
+  </view>
+
+  <view class="msg-list" wx:else>
+    <view class="msg-item" wx:for="{{msgList}}" wx:key="_id">
+      <image class="m-avatar" src="{{item.senderAvatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=user'}}"></image>
+      <view class="m-content">
+        
+        <view class="m-header">
+          <text class="m-name">{{item.senderName}}</text>
+          <text class="m-action">{{item.type === 'like' ? '赞了你的动态 ❤️' : '评论了你的动态 💬'}}</text>
+        </view>
+        
+        <view class="m-text" wx:if="{{item.type !== 'like'}}">{{item.content}}</view>
+        
+        <view class="m-quote">我的动态："{{item.momentText}}"</view>
+        <view class="m-time">{{item.time}}</view>
+
+      </view>
+    </view>
+  </view>
+</view>

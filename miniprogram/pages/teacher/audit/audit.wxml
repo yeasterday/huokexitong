@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="header-tips">🛡️ 盟主护卫舰：向左滑动可直接强制下架违规资源</view>
+
+  <view class="audit-list">
+    <view class="audit-card" wx:for="{{resourceList}}" wx:key="_id">
+      <view class="card-header">
+        <text class="r-type">{{item.type}}</text>
+        <text class="r-points">{{item.points}} 积分</text>
+      </view>
+      <view class="r-title">{{item.title}}</view>
+      <view class="r-desc">{{item.content}}</view>
+      
+      <view class="card-footer">
+        <text class="r-data">下载量: {{item.downloads}}</text>
+        <view class="delete-btn" bindtap="deleteResource" data-id="{{item._id}}">强制下架</view>
+      </view>
+    </view>
+    
+    <view class="empty-state" wx:if="{{resourceList.length === 0}}">
+      太棒了，目前社区风清气正，没有资源需要处理！
+    </view>
+  </view>
+</view>

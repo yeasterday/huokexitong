@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/student/index/index",
+    "pages/org/org",
+    "pages/student/messages/messages",
+    "pages/student/userMoments/userMoments",
+    "pages/student/followList/followList",
+    "pages/login/login",
+    "pages/teacher/manageShop/manageShop",
+    "pages/teacher/dashboard/dashboard",
+    "pages/teacher/students/students",
+    "pages/student/quest/quest",
+    "pages/teacher/promote/promote",
+    "pages/student/share/share",
+    "pages/teacher/report/report",
+    "pages/login/register",
+    "pages/student/shop/shop",
+    "pages/student/profile/profile",
+    "pages/student/schoolDetail/schoolDetail",
+    "pages/student/courseList/courseList",
+    "pages/student/resourceDetail/resourceDetail",
+    "pages/student/pet/pet",
+    "pages/student/publish/publish",
+    "pages/student/myResources/myResources",
+    "pages/student/poster/poster",
+    "pages/student/rank/rank",
+    "pages/teacher/addResource/addResource",
+    "pages/teacher/addShopItem/addShopItem",
+    "pages/student/orders/orders",
+    "pages/teacher/orderList/orderList",
+    "pages/teacher/audit/audit"
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#673AB7",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/student/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/student/quest/quest",
+        "text": "闯关"
+      },
+      {
+        "pagePath": "pages/student/shop/shop",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/student/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#673AB7",
+    "navigationBarTitleText": "青源智盟",
+    "navigationBarTextStyle": "white"
+  },
+  "style": "v2"
+}

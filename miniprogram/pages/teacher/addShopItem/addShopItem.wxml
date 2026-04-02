@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="form-box">
+    <view class="input-item">
+      <text class="label">商品名称</text>
+      <input class="input" placeholder="例如：限量版玩具枪 / 超级力量石" model:value="{{name}}" />
+    </view>
+
+    <view class="input-item">
+      <text class="label">商品封面图 (实物/虚拟特权选填)</text>
+      <view class="upload-box" bindtap="chooseImage">
+        <image wx:if="{{imageUrl}}" src="{{imageUrl}}" mode="aspectFill" class="preview-img"></image>
+        <view wx:else class="upload-btn"><text class="plus">+</text><text class="upload-text">点击上传图片</text></view>
+      </view>
+    </view>
+
+    <view class="input-item">
+      <text class="label">兑换所需积分</text>
+      <input class="input" type="number" placeholder="例如：500" model:value="{{price}}" />
+    </view>
+
+    <view class="input-item">
+      <text class="label">商品类别</text>
+      <picker bindchange="onTypeChange" value="{{typeIndex}}" range="{{types}}">
+        <view class="picker-value">{{types[typeIndex]}} <text class="arrow">▼</text></view>
+      </picker>
+    </view>
+
+    <view class="prop-config-box" wx:if="{{types[typeIndex] === '智宠道具'}}">
+      <view class="prop-title">⚔️ 道具专属功效配置</view>
+      
+      <view class="prop-row">
+        <text class="prop-label">图标(Emoji)</text>
+        <input class="prop-input" model:value="{{propIcon}}" placeholder="如: 💊" />
+      </view>
+      <view class="prop-row">
+        <text class="prop-label">道具说明</text>
+        <input class="prop-input" model:value="{{propDesc}}" placeholder="一句话描述道具作用" />
+      </view>
+
+      <view class="prop-grid">
+        <view class="p-item"><text>加经验</text><input type="number" model:value="{{addExp}}" /></view>
+        <view class="p-item"><text>加金灵</text><input type="number" model:value="{{addJin}}" /></view>
+        <view class="p-item"><text>加木灵</text><input type="number" model:value="{{addMu}}" /></view>
+        <view class="p-item"><text>加水灵</text><input type="number" model:value="{{addShui}}" /></view>
+        <view class="p-item"><text>加火灵</text><input type="number" model:value="{{addHuo}}" /></view>
+        <view class="p-item"><text>加土灵</text><input type="number" model:value="{{addTu}}" /></view>
+      </view>
+    </view>
+
+    <button class="submit-btn" bindtap="submit">确认上架到商城</button>
+  </view>
+</view>

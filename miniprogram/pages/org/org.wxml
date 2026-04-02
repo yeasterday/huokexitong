@@ -1,0 +1,65 @@
+<view class="container">
+  <view class="hero-section">
+    <view class="hero-title">青源智盟</view>
+    <view class="hero-sub">数字化私域资源平台 · 打造专属智慧校区</view>
+  </view>
+
+  <view class="content-section">
+    <view class="section-title">
+      <text class="line"></text>
+      <text class="title-text">入驻尊享四大特权</text>
+      <text class="line"></text>
+    </view>
+    
+    <view class="feature-list">
+      <view class="f-item">
+        <view class="f-icon">🚀</view>
+        <view class="f-text">
+          <view class="f-t-title">智能招生引流</view>
+          <view class="f-t-desc">专属邀请码机制，学生扫码即绑定本校，分销拓客更轻松。</view>
+        </view>
+      </view>
+      <view class="f-item">
+        <view class="f-icon">🏢</view>
+        <view class="f-text">
+          <view class="f-t-title">独立专属校区</view>
+          <view class="f-t-desc">学员打卡、积分沉淀、班级圈互动，数据安全隔离。</view>
+        </view>
+      </view>
+      <view class="f-item">
+        <view class="f-icon">💰</view>
+        <view class="f-text">
+          <view class="f-t-title">资源变现系统</view>
+          <view class="f-t-desc">上传校区专属试卷、真题，学生消耗积分下载，实现闭环变现。</view>
+        </view>
+      </view>
+      <view class="f-item">
+        <view class="f-icon">📊</view>
+        <view class="f-text">
+          <view class="f-t-title">盟主数据大盘</view>
+          <view class="f-t-desc">实时掌控校区学员活跃度、订单交易及积分消耗数据。</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="contact-section">
+    <view class="c-title">扫码添加盟主</view>
+    <view class="c-sub">获取免费体验账号及详细合作方案</view>
+    
+    <view class="qr-box">
+      <image class="qr-code" src="{{qrUrl}}" mode="aspectFit" bindtap="previewQR"></image>
+      <view class="scan-tip">点击图片可放大长按识别</view>
+    </view>
+
+    <view class="wechat-box">
+      <text class="wechat-label">微信号：</text>
+      <text class="wechat-id">{{wechatId}}</text>
+      <view class="copy-btn" bindtap="copyWechat">一键复制</view>
+    </view>
+  </view>
+  
+  <view class="footer">
+    加入我们，让天下没有难招的学生
+  </view>
+</view>

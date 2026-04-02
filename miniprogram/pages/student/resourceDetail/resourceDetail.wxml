@@ -1,0 +1,38 @@
+<view class="resource-container">
+  
+  <view class="search-header">
+    <view class="search-box">
+      <icon type="search" size="16" color="#999"></icon>
+      <input class="search-input" type="text" placeholder="搜索历年真题、政策解析..." confirm-type="search" model:value="{{keyword}}" bindconfirm="onSearch" />
+      <icon type="clear" size="16" color="#ccc" wx:if="{{keyword}}" bindtap="clearSearch" class="clear-icon"></icon>
+    </view>
+  </view>
+
+  <view class="list-section">
+    <view class="resource-card" wx:for="{{resourceList}}" wx:key="_id">
+      <view class="card-tags">
+        <view class="tag-official"><text class="diamond">💎</text> 官方认证资料</view>
+        <view class="tag-category" wx:if="{{item.type}}">#{{item.type}}</view>
+      </view>
+      
+      <view class="card-title">{{item.title}}</view>
+      
+      <view class="card-bottom">
+        <view class="hot-stats">🔥 {{item.downloads || 0}}人已领取</view>
+        <view class="download-btn" bindtap="handleDownload" data-item="{{item}}">
+          消耗 {{item.points || 10}} 积分下载
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{resourceList.length === 0}}">
+      <text>没有找到相关资源哦~</text>
+    </view>
+  </view>
+
+  <view class="fab-btn" bindtap="goToPublishResource">
+    <text class="fab-icon">+</text>
+    <text class="fab-text">发资源</text>
+  </view>
+
+</view>

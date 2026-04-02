@@ -1,0 +1,17 @@
+.container { padding: 30rpx; background: #f4f7f9; min-height: 100vh; }
+
+.course-card { display: flex; background: #fff; border-radius: 20rpx; padding: 20rpx; margin-bottom: 30rpx; box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.05); }
+
+.course-cover { width: 220rpx; height: 160rpx; border-radius: 12rpx; background: #eee; flex-shrink: 0; }
+
+.course-info { margin-left: 20rpx; flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 10rpx 0; }
+
+.course-title { font-size: 32rpx; font-weight: bold; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.course-bottom { display: flex; justify-content: space-between; align-items: center; }
+
+.course-price { font-size: 36rpx; color: #E53935; font-weight: bold; }
+
+.buy-btn { background: #E53935; color: #fff; font-size: 24rpx; padding: 10rpx 30rpx; border-radius: 30rpx; font-weight: bold; box-shadow: 0 4rpx 10rpx rgba(229,57,53,0.3); }
+
+.empty-state { text-align: center; margin-top: 300rpx; color: #999; font-size: 30rpx; }

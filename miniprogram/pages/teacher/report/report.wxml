@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="header">
+    <text class="title">全校经营月报</text>
+    <button class="export-btn" bindtap="doExport">导出 Excel 发至邮箱</button>
+  </view>
+
+  <view class="report-table">
+    <view class="table-header">
+      <text class="col">学员姓名</text>
+      <text class="col">本月打卡</text>
+      <text class="col">闯关总数</text>
+      <text class="col">剩余积分</text>
+    </view>
+    
+    <view class="table-row" wx:for="{{reportData}}" wx:key="name">
+      <text class="col">{{item.name}}</text>
+      <text class="col">{{item.checkins}}次</text>
+      <text class="col">{{item.levels}}关</text>
+      <text class="col">{{item.points}}</text>
+    </view>
+  </view>
+
+  <view class="tip">以上数据由青水 SaaS 系统自动实时汇总</view>
+</view>

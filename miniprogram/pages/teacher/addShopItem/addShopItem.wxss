@@ -1,0 +1,35 @@
+page { background: #f4f7fc; }
+.container { padding: 30rpx; }
+
+.header-card { margin-bottom: 40rpx; padding: 0 10rpx; }
+.title { font-size: 40rpx; font-weight: bold; color: #1a1b26; margin-bottom: 10rpx; }
+.subtitle { font-size: 24rpx; color: #999; }
+
+/* 表单白底大卡片 */
+.form-box { background: #fff; border-radius: 30rpx; padding: 40rpx 30rpx; box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.02); }
+.input-item { margin-bottom: 40rpx; }
+.label { font-size: 28rpx; color: #333; font-weight: bold; display: block; margin-bottom: 20rpx; }
+
+/* 灰色质感输入框 */
+.input { height: 90rpx; background: #f8f9fb; border-radius: 16rpx; padding: 0 30rpx; font-size: 28rpx; color: #333; }
+.picker-box { height: 90rpx; background: #f8f9fb; border-radius: 16rpx; padding: 0 30rpx; font-size: 28rpx; color: #673AB7; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+.arrow { font-size: 20rpx; color: #999; }
+
+/* 底部黑金大按钮 */
+.submit-btn { margin-top: 60rpx; background: #1a1b26; color: #FFD54F; font-size: 32rpx; font-weight: bold; border-radius: 50rpx; height: 100rpx; display: flex; justify-content: center; align-items: center; box-shadow: 0 10rpx 20rpx rgba(26,27,38,0.2); }
+.submit-btn::after { border: none; }
+/* 图片上传区样式 */
+.upload-box { width: 100%; height: 200rpx; background: #f8f9fb; border-radius: 16rpx; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 2rpx dashed #d1d5db; }
+.upload-btn { display: flex; flex-direction: column; align-items: center; color: #999; }
+.plus { font-size: 48rpx; margin-bottom: 10rpx; }
+.upload-text { font-size: 24rpx; }
+.preview-img { width: 100%; height: 100%; }
+.prop-config-box { background: #f4f6f9; padding: 24rpx; border-radius: 20rpx; margin-bottom: 40rpx; border: 2rpx dashed #d1c4e9; }
+.prop-title { font-size: 26rpx; font-weight: bold; color: #673AB7; margin-bottom: 20rpx; }
+.prop-row { display: flex; align-items: center; margin-bottom: 16rpx; }
+.prop-label { font-size: 24rpx; color: #555; width: 140rpx; }
+.prop-input { flex: 1; background: #fff; height: 60rpx; border-radius: 10rpx; padding: 0 16rpx; font-size: 24rpx; }
+.prop-grid { display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 20rpx; }
+.p-item { width: 31%; background: #fff; padding: 12rpx; border-radius: 12rpx; margin-bottom: 16rpx; text-align: center; box-sizing: border-box; }
+.p-item text { font-size: 22rpx; color: #888; display: block; margin-bottom: 8rpx; }
+.p-item input { background: #f8f9fb; height: 50rpx; border-radius: 8rpx; font-size: 28rpx; font-weight: bold; color: #FF5722; }

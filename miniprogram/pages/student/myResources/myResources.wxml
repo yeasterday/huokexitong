@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="header">
+    <text class="title">我的专属书包 🎒</text>
+    <text class="subtitle">这里装着你用智慧换来的所有宝藏</text>
+  </view>
+
+  <view class="loading-state" wx:if="{{isLoading}}">翻找书包中...</view>
+
+  <view class="empty-state" wx:if="{{!isLoading && myList.length === 0}}">
+    <view class="empty-icon">📭</view>
+    <text>书包空空如也，快去资源贴吧寻宝吧！</text>
+  </view>
+
+  <view class="resource-list" wx:if="{{myList.length > 0}}">
+    <view class="resource-card" wx:for="{{myList}}" wx:key="_id">
+      <view class="card-top">
+        <text class="r-type">{{item.type || '学习资料'}}</text>
+        <text class="r-time">已解锁 · 永久有效</text>
+      </view>
+      
+      <view class="r-title">{{item.title}}</view>
+      
+      <view class="card-bottom">
+        <view class="r-points" style="color:#4CAF50; font-weight:bold;">✅ 兑换成功</view>
+        <view class="copy-btn" bindtap="copyLink" data-link="{{item.fileId || item.link}}">提取资料</view>
+      </view>
+    </view>
+  </view>
+</view>

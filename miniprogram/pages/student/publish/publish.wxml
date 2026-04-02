@@ -1,0 +1,34 @@
+<view class="publish-container">
+  
+  <view class="input-section">
+    <textarea 
+      class="text-content" 
+      placeholder="分享今天的学习趣事或心得..." 
+      maxlength="500" 
+      bindinput="handleInput" 
+      value="{{content}}"
+      auto-focus="true"
+    ></textarea>
+    <text class="word-count">{{content.length}}/500</text>
+  </view>
+
+  <view class="image-section">
+    <view class="img-grid">
+      <view class="img-box" wx:for="{{images}}" wx:key="*this">
+        <image class="uploaded-img" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-url="{{item}}"></image>
+        <view class="delete-icon" catchtap="removeImage" data-index="{{index}}">×</view>
+      </view>
+      
+      <view class="add-btn" bindtap="chooseImage" wx:if="{{images.length < 9}}">
+        <text class="add-icon">+</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-section">
+    <button class="submit-btn" bindtap="submitPost" disabled="{{isPublishing}}">
+      {{isPublishing ? '正在发送...' : '发表动态'}}
+    </button>
+  </view>
+
+</view>

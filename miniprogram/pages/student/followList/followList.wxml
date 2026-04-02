@@ -1,0 +1,10 @@
+<view class="container">
+  <view class="empty-tip" wx:if="{{list.length === 0}}">还没有关注任何人哦~</view>
+  <view class="f-list">
+    <view class="f-item" wx:for="{{list}}" wx:key="_id" bindtap="goToUser" data-id="{{item.followedId}}">
+      <image class="f-avatar" src="{{item.targetAvatar}}"></image>
+      <text class="f-name">{{item.targetName}}</text>
+      <view class="arrow">></view>
+    </view>
+  </view>
+</view>

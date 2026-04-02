@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="header">
+    <text class="title">获客活动方案</text>
+    <text class="subtitle">设计精美海报，让家长主动为你转发</text>
+  </view>
+
+  <view class="promo-card" wx:for="{{promotions}}" wx:key="id">
+    <view class="promo-info">
+      <view class="promo-title">{{item.title}}</view>
+      <view class="promo-tag">{{item.type}}</view>
+    </view>
+    <view class="promo-desc">{{item.desc}}</view>
+    <view class="promo-footer">
+      <text class="stats">已带来：{{item.leads}} 位新客</text>
+      <button class="share-btn" bindtap="previewPoster" data-item="{{item}}">预览海报</button>
+    </view>
+  </view>
+
+  <button class="add-btn">+ 创建新引流活动</button>
+</view>

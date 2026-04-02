@@ -1,0 +1,36 @@
+page { background: #f4f6f9; font-family: -apple-system, sans-serif; }
+.container { padding-bottom: 60rpx; }
+
+/* 头部 */
+.hero-section { background: linear-gradient(135deg, #673AB7, #3F51B5); padding: 80rpx 40rpx 100rpx; color: #fff; text-align: center; border-radius: 0 0 50rpx 50rpx; box-shadow: 0 10rpx 30rpx rgba(103,58,183,0.3); }
+.hero-title { font-size: 56rpx; font-weight: 900; margin-bottom: 20rpx; letter-spacing: 4rpx; }
+.hero-sub { font-size: 26rpx; opacity: 0.9; letter-spacing: 2rpx; }
+
+/* 优势列表 */
+.content-section { background: #fff; margin: -50rpx 30rpx 40rpx; border-radius: 24rpx; padding: 50rpx 30rpx; box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.05); position: relative; z-index: 10; }
+.section-title { display: flex; align-items: center; justify-content: center; margin-bottom: 40rpx; }
+.line { width: 60rpx; height: 2rpx; background: #ddd; }
+.title-text { font-size: 32rpx; font-weight: bold; color: #333; margin: 0 20rpx; }
+
+.f-item { display: flex; margin-bottom: 40rpx; align-items: flex-start; }
+.f-item:last-child { margin-bottom: 0; }
+.f-icon { width: 80rpx; height: 80rpx; background: #f3e5f5; border-radius: 20rpx; display: flex; justify-content: center; align-items: center; font-size: 40rpx; margin-right: 24rpx; flex-shrink: 0; }
+.f-t-title { font-size: 30rpx; font-weight: bold; color: #333; margin-bottom: 8rpx; }
+.f-t-desc { font-size: 24rpx; color: #666; line-height: 1.5; }
+
+/* 联系区 */
+.contact-section { background: #fff; margin: 0 30rpx 40rpx; border-radius: 24rpx; padding: 50rpx 30rpx; text-align: center; box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.05); }
+.c-title { font-size: 36rpx; font-weight: bold; color: #333; margin-bottom: 10rpx; }
+.c-sub { font-size: 24rpx; color: #999; margin-bottom: 40rpx; }
+
+.qr-box { background: #f9f9f9; padding: 30rpx; border-radius: 20rpx; display: inline-block; margin-bottom: 40rpx; border: 2rpx dashed #d1c4e9; }
+.qr-code { width: 300rpx; height: 300rpx; display: block; margin: 0 auto 20rpx; }
+.scan-tip { font-size: 22rpx; color: #673AB7; font-weight: bold; }
+
+.wechat-box { display: flex; align-items: center; justify-content: center; background: #f4f6f9; padding: 20rpx 30rpx; border-radius: 40rpx; width: 80%; margin: 0 auto; }
+.wechat-label { font-size: 28rpx; color: #666; }
+.wechat-id { font-size: 32rpx; font-weight: bold; color: #333; margin-right: 20rpx; }
+.copy-btn { background: #673AB7; color: #fff; font-size: 24rpx; padding: 8rpx 24rpx; border-radius: 30rpx; font-weight: bold; transition: opacity 0.2s;}
+.copy-btn:active { opacity: 0.8; }
+
+.footer { text-align: center; font-size: 22rpx; color: #ccc; margin-top: 40rpx; }

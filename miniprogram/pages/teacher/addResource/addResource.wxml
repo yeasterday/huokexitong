@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="header">
+    <text class="title">发布新资源/课程</text>
+    <text class="desc">填写的资料将直接进入首页资源库</text>
+  </view>
+
+  <view class="form-box">
+    <view class="input-item">
+      <text class="label">资源名称</text>
+      <input class="input" placeholder="例如：2026年考研数学思维导图" model:value="{{title}}" />
+    </view>
+
+    <view class="input-item">
+      <text class="label">所需积分</text>
+      <input class="input" type="number" placeholder="建议设置 10-50 积分" model:value="{{points}}" />
+    </view>
+
+    <view class="input-item">
+      <text class="label">资源分类</text>
+      <picker bindchange="onTypeChange" value="{{index}}" range="{{typeList}}">
+        <view class="picker-box">{{typeList[typeIndex]}} ▼</view>
+      </picker>
+    </view>
+
+    <view class="input-item">
+      <text class="label">详细介绍</text>
+      <textarea class="textarea" placeholder="请详细描述该资源包含的内容，方便用户下载..." model:value="{{content}}" maxlength="500"></textarea>
+    </view>
+
+    <view class="input-item">
+      <text class="label">资源下载链接/提取码</text>
+      <input class="input" placeholder="输入云盘链接或查看方式" model:value="{{link}}" />
+    </view>
+  </view>
+
+  <button class="submit-btn" bindtap="submitResource">确认发布至全网</button>
+</view>

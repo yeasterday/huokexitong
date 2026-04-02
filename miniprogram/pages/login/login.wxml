@@ -1,0 +1,14 @@
+<view class="login-container">
+  <view class="logo-box">
+    <view class="logo-text">青源智盟</view>
+    <view class="logo-sub">开启你的智慧之旅</view>
+  </view>
+
+  <view class="form-box">
+    <input class="input-field" type="text" placeholder="请输入登录账号" model:value="{{account}}" />
+    <input class="input-field" type="text" password="true" placeholder="请输入密码" model:value="{{password}}" />
+    
+    <button class="login-btn" bindtap="handleLogin">登 录</button>
+    <view class="register-link" bindtap="goToRegister">还没有账号？点击这里注册</view>
+  </view>
+</view>

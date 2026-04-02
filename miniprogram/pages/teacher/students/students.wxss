@@ -1,0 +1,31 @@
+.container { padding: 20rpx; background: #f4f7f9; min-height: 100vh; }
+.tool-bar { display: flex; align-items: center; margin-bottom: 30rpx; }
+.search-box { 
+  flex: 1; background: white; height: 80rpx; border-radius: 40rpx; 
+  display: flex; align-items: center; padding: 0 30rpx; margin-right: 20rpx;
+}
+.search-box input { margin-left: 15rpx; font-size: 28rpx; flex: 1; }
+.inject-btn { 
+  background: #FF9800; color: white; font-size: 24rpx; 
+  padding: 0 20rpx; height: 70rpx; line-height: 70rpx; border-radius: 35rpx;
+}
+
+.count-tag { font-size: 24rpx; color: #999; margin-left: 20rpx; margin-bottom: 20rpx; }
+.list-view { height: calc(100vh - 150rpx); }
+
+.student-card { 
+  background: white; border-radius: 20rpx; padding: 30rpx; 
+  display: flex; align-items: center; margin-bottom: 20rpx;
+}
+.avatar { width: 100rpx; height: 100rpx; border-radius: 50%; background: #eee; margin-right: 30rpx; }
+.info { flex: 1; }
+.name-row { display: flex; align-items: center; margin-bottom: 10rpx; }
+.name { font-size: 32rpx; font-weight: bold; color: #333; margin-right: 15rpx; }
+.grade-tag { font-size: 20rpx; background: #E8E0FF; color: #673AB7; padding: 4rpx 12rpx; border-radius: 6rpx; }
+.detail { font-size: 24rpx; color: #999; }
+
+.status { font-size: 22rpx; padding: 6rpx 16rpx; border-radius: 30rpx; background: #f0f0f0; color: #bbb; }
+.status.active { background: #E8F5E9; color: #4CAF50; }
+
+.empty-box { text-align: center; padding-top: 100rpx; color: #ccc; font-size: 28rpx; }
+.empty-box image { width: 300rpx; height: 300rpx; display: block; margin: 0 auto 30rpx; }

@@ -1,0 +1,45 @@
+page { background: #5c3b2e; color: #fff; font-family: "PingFang SC", sans-serif; }
+.stardew-container { padding: 30rpx; min-height: 100vh; display: flex; flex-direction: column; }
+
+/* 头部公告牌 */
+.wood-header { background: #7d4d38; border: 6rpx solid #3e2723; border-radius: 8rpx; padding: 20rpx; display: flex; justify-content: space-between; align-items: center; box-shadow: inset -4rpx -4rpx 0 #4e342e; }
+.p-name { font-size: 32rpx; font-weight: bold; }
+.p-lvl { background: #ffca28; color: #3e2723; font-size: 20rpx; padding: 2rpx 10rpx; margin-left: 10rpx; border-radius: 4rpx; font-weight: bold; }
+.score-val { color: #ffeb3b; font-weight: bold; margin-left: 10rpx; }
+
+/* 纸张展示区 */
+.farm-display { margin: 20rpx 0; background: #3e2723; padding: 16rpx; border-radius: 8rpx; }
+.paper-bg { background: #f4e4bc; border: 4rpx solid #9e8d65; height: 550rpx; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.pixel-canvas { width: 300px; height: 300px; image-rendering: pixelated; }
+
+/* 属性气泡 */
+.pixel-stats { position: absolute; bottom: 10rpx; display: flex; flex-wrap: wrap; justify-content: center; gap: 8rpx; }
+.p-tag { font-size: 18rpx; background: #fff; color: #333; border: 2rpx solid #333; padding: 2rpx 10rpx; font-weight: bold; }
+
+/* 体力条 */
+.energy-panel { margin-bottom: 30rpx; }
+.bar-label { font-size: 22rpx; color: #f4e4bc; margin-bottom: 10rpx; }
+.stamina-bar { height: 28rpx; background: #3e2723; border: 4rpx solid #2e1a14; border-radius: 14rpx; overflow: hidden; }
+.stamina-fill { height: 100%; background: #4caf50; border-right: 4rpx solid #2e7d32; }
+
+/* 喂食行 */
+.food-row { display: flex; justify-content: space-between; margin-bottom: 40rpx; }
+.food-item { text-align: center; }
+.food-icon { width: 80rpx; height: 80rpx; background: #7d4d38; border: 4rpx solid #3e2723; border-radius: 8rpx; display: flex; align-items: center; justify-content: center; font-size: 40rpx; margin-bottom: 6rpx; }
+.food-item text { font-size: 20rpx; color: #f4e4bc; }
+
+/* 底部按钮 */
+.farm-actions { display: flex; gap: 10rpx; }
+.pixel-btn { flex: 1; height: 80rpx; line-height: 80rpx; text-align: center; font-weight: bold; font-size: 24rpx; color: #fff; border: 4rpx solid #000; border-radius: 0; box-shadow: inset -4rpx -4rpx 0 rgba(0,0,0,0.2); }
+.play { background: #43a047; } .bag { background: #8d6e63; } .share { background: #1e88e3; }
+
+/* 弹窗样式 */
+.modal-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; display: flex; align-items: center; justify-content: center; }
+.bag-modal { width: 85%; background: #f4e4bc; border: 8rpx solid #3e2723; padding: 30rpx; }
+.bag-header { display: flex; justify-content: space-between; margin-bottom: 20rpx; border-bottom: 4rpx solid #3e2723; padding-bottom: 10rpx; }
+.bag-title { color: #3e2723; font-weight: bold; }
+.bag-item { display: flex; align-items: center; background: rgba(255,255,255,0.5); padding: 15rpx; margin-bottom: 15rpx; border: 2rpx solid #9e8d65; }
+.item-icon { font-size: 50rpx; margin-right: 20rpx; }
+.item-name { font-size: 26rpx; color: #3e2723; font-weight: bold; }
+.item-desc { font-size: 20rpx; color: #7d4d38; }
+.use-btn { background: #43a047; color: #fff; padding: 6rpx 20rpx; font-size: 22rpx; border: 2rpx solid #000; }
