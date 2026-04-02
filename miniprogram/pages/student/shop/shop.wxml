@@ -1,89 +1,67 @@
-<view class="container">
-  <view class="header-card">
-    <view class="points-circle">
-      <view class="points-val">{{score || 0}}</view>
-      <view class="points-label">可用脑力资产</view>
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">积分商城</view>
+    <view class="hero-subtitle">{{userInfo.orgName || '登录后可按所属校区查看对应福利与道具'}}</view>
+    <view class="score-card">
+      <text class="score-num">{{score || 0}}</text>
+      <text class="score-label">当前可用积分</text>
     </view>
-    <view class="bg-deco-1"></view>
-    <view class="bg-deco-2"></view>
   </view>
 
-  <view class="shop-body">
-    <view class="section-box">
-      <view class="section-head">
-        <view class="title-wrap"><text class="section-title">虚拟荣誉特权</text><text class="section-tag">即时生效</text></view>
-      </view>
-      <view class="goods-grid">
-        <view class="goods-item" wx:for="{{virtualGoods}}" wx:key="_id">
-          <view class="item-tag" wx:if="{{item.price > 500}}">限量</view>
-          <view class="item-icon-wrap"><text class="item-icon">🎁</text></view>
-          <view class="item-info">
-            <text class="item-name">{{item.name}}</text>
-            <view class="item-price"><text class="p-num">{{item.price}}</text><text class="p-unit">积分</text></view>
-          </view>
-          <view class="exchange-btn" bindtap="exchange" data-item="{{item}}">兑换</view>
+  <view class="filter-row">
+    <view class="filter-chip {{filter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="changeFilter">全部</view>
+    <view class="filter-chip {{filter === 'virtual' ? 'active' : ''}}" data-filter="virtual" bindtap="changeFilter">虚拟权益</view>
+    <view class="filter-chip {{filter === 'physical' ? 'active' : ''}}" data-filter="physical" bindtap="changeFilter">实物福利</view>
+    <view class="filter-chip {{filter === 'pet' ? 'active' : ''}}" data-filter="pet" bindtap="changeFilter">灵宠道具</view>
+  </view>
+
+  <view class="list">
+    <view class="goods-card" wx:for="{{displayList}}" wx:key="_id">
+      <view class="goods-top">
+        <image class="goods-image" src="{{item.imageUrl}}" mode="aspectFill" wx:if="{{item.imageUrl}}"></image>
+        <view class="goods-icon" wx:else>{{item.icon || (item.categoryKey === 'pet' ? '宠' : (item.categoryKey === 'physical' ? '礼' : '券'))}}</view>
+        <view class="goods-main">
+          <view class="goods-name">{{item.name}}</view>
+          <view class="goods-tag">{{item.categoryLabel}}</view>
+          <view class="goods-desc">{{item.desc || item.orgName || '教师已配置可兑换内容'}}</view>
         </view>
+      </view>
+
+      <view class="goods-foot">
+        <view class="goods-price">{{item.price || 0}} 积分</view>
+        <view class="exchange-btn" bindtap="exchange" data-item="{{item}}">立即兑换</view>
       </view>
     </view>
 
-    <view class="section-box" wx:if="{{petGoods.length > 0}}">
-      <view class="section-head">
-        <view class="title-wrap"><text class="section-title">智宠道具</text><text class="section-tag" style="background: rgba(255,152,0,0.1); color: #FF9800;">存入背包</text></view>
-      </view>
-      <view class="goods-grid">
-        <view class="goods-item" wx:for="{{petGoods}}" wx:key="_id">
-          <view class="item-icon-wrap"><text class="item-icon">💊</text></view>
-          <view class="item-info">
-            <text class="item-name">{{item.name}}</text>
-            <view class="item-price"><text class="p-num">{{item.price}}</text><text class="p-unit">积分</text></view>
-          </view>
-          <view class="exchange-btn" style="background: linear-gradient(135deg, #FF9800, #FF5722);" bindtap="exchange" data-item="{{item}}">兑换放入背包</view>
-        </view>
-      </view>
-    </view>
-
-    <view class="section-box">
-      <view class="section-head"><text class="section-title">线下实物福利</text></view>
-      <view class="coupon-card" wx:for="{{realGoods}}" wx:key="_id">
-        <view class="c-left"><text class="c-val">福</text><text class="c-type">实物卡</text></view>
-        <view class="c-mid">
-          <text class="c-name">{{item.name}}</text>
-          <text class="c-price">{{item.price}} 积分</text>
-        </view>
-        <view class="c-right" bindtap="exchange" data-item="{{item}}">立即兑换</view>
-      </view>
-    </view>
+    <view class="state-box" wx:if="{{displayList.length === 0}}">当前分类暂无可兑换内容</view>
   </view>
 
   <view class="modal-mask" wx:if="{{showBuyModal}}" bindtap="closeBuyModal">
     <view class="buy-modal" catchtap="stopP">
-      <view class="modal-close" bindtap="closeBuyModal">×</view>
-      
-      <view class="buy-header">
-        <view class="buy-icon">{{currentBuyItem.category === '智宠道具' ? '💊' : '🎁'}}</view>
-        <view class="buy-info">
-          <text class="buy-name">{{currentBuyItem.name}}</text>
-          <text class="buy-price">{{currentBuyItem.price}} 积分/件</text>
-        </view>
-      </view>
-      
-      <view class="buy-desc">
-        <text class="desc-label">💡 物品说明：</text>
-        <text class="desc-content">{{currentBuyItem.desc}}</text>
-      </view>
+      <view class="modal-title">确认兑换</view>
+      <view class="modal-name">{{currentBuyItem.name}}</view>
+      <view class="modal-price">单价 {{currentBuyItem.price || 0}} 积分</view>
 
-      <view class="buy-qty-row">
+      <view class="qty-row">
         <text class="qty-label">兑换数量</text>
         <view class="stepper">
-          <view class="stepper-btn" bindtap="subQty">-</view>
-          <view class="stepper-num">{{buyQuantity}}</view>
-          <view class="stepper-btn" bindtap="addQty">+</view>
+          <view class="step-btn" bindtap="subQty">-</view>
+          <view class="step-num">{{buyQuantity}}</view>
+          <view class="step-btn" bindtap="addQty">+</view>
         </view>
       </view>
 
-      <view class="buy-total">总计需支付：<text class="total-price">{{currentBuyItem.price * buyQuantity}} 积分</text></view>
-      <view class="buy-confirm-btn" bindtap="confirmBuy">确认兑换</view>
+      <view class="address-box" wx:if="{{currentBuyItem.categoryKey === 'physical'}}">
+        <text class="address-label">收货信息</text>
+        <textarea class="address-input" placeholder="请输入收货人、手机号、地址" value="{{addressInfo}}" data-field="addressInfo" bindinput="handleInput"></textarea>
+      </view>
+
+      <view class="total-row">
+        <text>合计</text>
+        <text class="total-price">{{(currentBuyItem.price || 0) * buyQuantity}} 积分</text>
+      </view>
+
+      <button class="confirm-btn" bindtap="confirmBuy">提交兑换</button>
     </view>
   </view>
-
 </view>

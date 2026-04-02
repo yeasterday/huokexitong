@@ -1,66 +1,66 @@
 const app = getApp();
+const db = wx.cloud.database();
+const { getOrgScope } = require('../../../utils/org');
+const { sumProgress } = require('../../../utils/date');
 
 Page({
   data: {
+    loading: true,
     students: [],
-    isDemo: false,
-    allStudents: []
+    allStudents: [],
+    keyword: '',
   },
 
-  onLoad: function() {
-    const userInfo = wx.getStorageSync('userInfo');
-    this.setData({ isDemo: userInfo.institutionId === 'demo_001' });
+  onShow() {
     this.fetchStudents();
   },
 
-  // 获取学员列表
-  fetchStudents: function() {
-    const userInfo = wx.getStorageSync('userInfo');
-    const db = wx.cloud.database();
-    db.collection('users').where({
-      institutionId: userInfo.institutionId,
-      role: 'student'
-    }).get().then(res => {
-      this.setData({ 
-        students: res.data,
-        allStudents: res.data 
+  async fetchStudents() {
+    const user = await app.requireLogin({ redirect: false });
+    if (!user || !user._id) {
+      this.setData({ loading: false, students: [], allStudents: [] });
+      return;
+    }
+
+    const { orgId } = getOrgScope(user);
+    const todayKey = app.getTodayKey();
+
+    try {
+      const res = await db.collection('users').where({
+        orgId,
+        role: 'student',
+      }).get();
+
+      const allStudents = (res.data || []).map((item) => ({
+        ...item,
+        learnedWords: sumProgress(item.progress || {}),
+        active: item.lastCheckInDate === todayKey,
+      }));
+
+      this.setData({
+        loading: false,
+        students: allStudents,
+        allStudents,
       });
+    } catch (error) {
+      console.error('fetch students error', error);
+      this.setData({ loading: false, students: [], allStudents: [] });
+      wx.showToast({ title: '加载学员失败', icon: 'none' });
+    }
+  },
+
+  onSearch(e) {
+    const keyword = e.detail.value.trim().toLowerCase();
+    this.setData({ keyword });
+    if (!keyword) {
+      this.setData({ students: this.data.allStudents });
+      return;
+    }
+
+    const students = this.data.allStudents.filter((item) => {
+      const source = `${item.name || ''}${item.nickname || ''}${item.phone || ''}`.toLowerCase();
+      return source.includes(keyword);
     });
+    this.setData({ students });
   },
-
-  // 搜索逻辑
-  onSearch: function(e) {
-    const key = e.detail.value.toLowerCase();
-    const filtered = this.data.allStudents.filter(s => s.name.includes(key));
-    this.setData({ students: filtered });
-  },
-
-  // 【核心功能】一键注入模拟数据
-  injectData: function() {
-    wx.showLoading({ title: '正在召集学霸...' });
-    
-    // 模拟 5 个高颜值学生数据
-    const names = ['张小明', '李华', '王思齐', '陈语嫣', '赵子轩'];
-    const grades = ['三年级', '初二', '高一', '五年级', '初三'];
-    const mockData = names.map((name, i) => ({
-      name,
-      grade: grades[i],
-      points: Math.floor(Math.random() * 1000),
-      level: Math.floor(Math.random() * 20) + 1,
-      active: Math.random() > 0.5,
-      role: 'student',
-      institutionId: 'demo_001',
-      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}` // 自动生成头像
-    }));
-
-    // 这里在演示模式下直接更新本地视图，不写数据库，保护环境
-    setTimeout(() => {
-      wx.hideLoading();
-      this.setData({ 
-        students: mockData,
-        allStudents: mockData 
-      });
-      wx.showToast({ title: '注入成功！', icon: 'success' });
-    }, 1500);
-  }
 });

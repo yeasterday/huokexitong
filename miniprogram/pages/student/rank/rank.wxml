@@ -1,32 +1,37 @@
 <view class="container">
   <view class="header-banner">
-    <view class="title">🏆 青源脑力封神榜</view>
-    <view class="subtitle">全城最具智慧的 Top 20 极客</view>
+    <view class="title">成长排行榜</view>
+    <view class="subtitle">可以切换看积分榜或累计学习词数榜。</view>
+    <view class="current-rank" wx:if="{{currentRank}}">你的当前名次：第 {{currentRank}} 名</view>
+  </view>
+
+  <view class="mode-row">
+    <view class="mode-chip {{mode === 'score' ? 'active' : ''}}" data-mode="score" bindtap="changeMode">积分榜</view>
+    <view class="mode-chip {{mode === 'learned' ? 'active' : ''}}" data-mode="learned" bindtap="changeMode">词汇榜</view>
   </view>
 
   <view class="rank-list">
     <view class="rank-card" wx:for="{{rankList}}" wx:key="_id">
-      
       <view class="rank-num {{index === 0 ? 'gold' : ''}} {{index === 1 ? 'silver' : ''}} {{index === 2 ? 'bronze' : ''}}">
         {{index + 1}}
       </view>
 
-      <image class="avatar" src="{{item.avatarUrl}}" mode="aspectFill" wx:if="{{item.avatarUrl}}"></image>
-      <view class="avatar placeholder" wx:else>👦</view>
+      <image class="avatar" src="{{item.avatar || item.avatarUrl}}" mode="aspectFill" wx:if="{{item.avatar || item.avatarUrl}}"></image>
+      <view class="avatar placeholder" wx:else>{{item.avatarText}}</view>
 
       <view class="info">
-        <view class="nickname">{{item.nickname || '神秘居民'}}</view>
-        <view class="pet-level">神兽 Lv.{{item.petLevel || 1}}</view>
+        <view class="nickname">{{item.nickname || item.name || '未命名学员'}}</view>
+        <view class="pet-level">{{item.orgName || '学习社区'}}</view>
       </view>
 
       <view class="score-box">
-        <text class="score-num">{{item.score || 0}}</text>
-        <text class="score-label">脑力值</text>
+        <text class="score-num">{{mode === 'score' ? (item.score || 0) : (item.learnedWords || 0)}}</text>
+        <text class="score-label">{{mode === 'score' ? '积分' : '已学词数'}}</text>
       </view>
     </view>
   </view>
 
   <view class="empty-state" wx:if="{{rankList.length === 0}}">
-    榜单正在快马加鞭核算中...
+    暂时还没有可展示的榜单数据。
   </view>
 </view>

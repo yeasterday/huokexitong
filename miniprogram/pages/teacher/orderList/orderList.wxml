@@ -1,21 +1,35 @@
 <view class="container">
   <view class="header">
-    <text class="title">待处理订单</text>
-    <text class="count">共 {{orders.length}} 笔</text>
+    <text class="title">订单处理</text>
+    <text class="count">共 {{displayOrders.length}} 笔</text>
+  </view>
+
+  <view class="filter-row">
+    <view class="filter-chip {{filter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="changeFilter">全部</view>
+    <view class="filter-chip {{filter === 'pending' ? 'active' : ''}}" data-filter="pending" bindtap="changeFilter">待处理</view>
+    <view class="filter-chip {{filter === 'shipped' ? 'active' : ''}}" data-filter="shipped" bindtap="changeFilter">已发货</view>
+    <view class="filter-chip {{filter === 'completed' ? 'active' : ''}}" data-filter="completed" bindtap="changeFilter">已完成</view>
   </view>
 
   <view class="order-list">
-    <view class="admin-card" wx:for="{{orders}}" wx:key="_id">
+    <view class="admin-card" wx:for="{{displayOrders}}" wx:key="_id">
       <view class="user-row">
-        <text class="user-name">👤 兑换人：{{item.nickname}}</text>
-        <text class="status-btn" bindtap="finishOrder" data-id="{{item._id}}">标记发货</text>
+        <text class="user-name">{{item.nickname || '学员'}} · {{item.timeText}}</text>
+        <text class="status-btn" bindtap="finishOrder" data-order="{{item}}" wx:if="{{item.statusKey === 'pending'}}">标记发货</text>
+        <text class="count" wx:else>{{item.statusKey === 'shipped' ? '已发货' : '已完成'}}</text>
       </view>
       <view class="item-row">
-        <text class="item-title">🎁 兑换商品：{{item.itemName}}</text>
+        <text class="item-title">{{item.itemName}} · {{item.totalPoints || item.price || 0}} 积分</text>
       </view>
       <view class="address-row">
-        <text class="addr-content">📍 信息：{{item.address}}</text>
+        <text class="addr-content">数量：{{item.quantity || 1}} | 类型：{{item.category || '订单'}}</text>
+        <text class="addr-content" wx:if="{{item.address}}">收货信息：{{item.address}}</text>
+        <text class="addr-content" wx:if="{{item.deliveryInfo}}">发货备注：{{item.deliveryInfo}}</text>
       </view>
+    </view>
+
+    <view class="empty-box" wx:if="{{displayOrders.length === 0}}">
+      <text>当前筛选条件下没有订单。</text>
     </view>
   </view>
 </view>

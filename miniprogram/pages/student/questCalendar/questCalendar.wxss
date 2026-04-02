@@ -1,0 +1,170 @@
+page {
+  background: #f5f7fb;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 24rpx;
+}
+
+.hero-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #23384c;
+}
+
+.hero-subtitle {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #78889a;
+}
+
+.summary-card {
+  margin-top: 24rpx;
+  padding: 24rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 12rpx 30rpx rgba(31, 52, 82, 0.05);
+}
+
+.summary-item {
+  width: 31%;
+}
+
+.summary-value {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #23384c;
+}
+
+.summary-label {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #7c8d9f;
+}
+
+.calendar-card,
+.legend-card {
+  margin-top: 20rpx;
+  padding: 24rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 30rpx rgba(31, 52, 82, 0.05);
+}
+
+.calendar-head,
+.week-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.month-switch {
+  color: #447be5;
+  font-size: 24rpx;
+}
+
+.month-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #23384c;
+}
+
+.week-row {
+  margin-top: 20rpx;
+  padding-bottom: 12rpx;
+  border-bottom: 2rpx solid #eef2f6;
+}
+
+.week-cell {
+  width: 14.285%;
+  text-align: center;
+  font-size: 22rpx;
+  color: #7c8d9f;
+}
+
+.calendar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10rpx;
+}
+
+.day-cell {
+  width: 14.285%;
+  min-height: 120rpx;
+  padding: 14rpx 0;
+  border-radius: 18rpx;
+  text-align: center;
+}
+
+.day-cell.today {
+  background: #eef4fb;
+}
+
+.day-cell.empty {
+  visibility: hidden;
+}
+
+.day-num {
+  font-size: 26rpx;
+  color: #23384c;
+}
+
+.marks {
+  display: flex;
+  justify-content: center;
+  gap: 8rpx;
+  margin-top: 10rpx;
+}
+
+.mark {
+  min-width: 28rpx;
+  padding: 4rpx 8rpx;
+  border-radius: 999rpx;
+  font-size: 18rpx;
+  color: #fff;
+}
+
+.mark.blue,
+.legend-dot.blue {
+  background: #447be5;
+}
+
+.mark.green,
+.legend-dot.green {
+  background: #2ea66f;
+}
+
+.count {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 18rpx;
+  color: #7c8d9f;
+}
+
+.loading-box {
+  padding: 40rpx 0 20rpx;
+  text-align: center;
+  color: #7c8d9f;
+  font-size: 24rpx;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-top: 10rpx;
+  color: #5f7488;
+  font-size: 24rpx;
+}
+
+.legend-dot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 999rpx;
+  margin-right: 12rpx;
+}

@@ -1,14 +1,118 @@
-page { background: #f4f6f9; font-family: -apple-system, sans-serif; }
-.login-container { padding: 60rpx; display: flex; flex-direction: column; min-height: 100vh; justify-content: center; margin-top: -100rpx; }
+page {
+  background:
+    radial-gradient(circle at top, rgba(103, 58, 183, 0.16), transparent 38%),
+    linear-gradient(180deg, #f7f5ff 0%, #eef3ff 46%, #f7f8fb 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
 
-.logo-box { text-align: center; margin-bottom: 80rpx; }
-.logo-text { font-size: 56rpx; font-weight: 900; color: #673AB7; letter-spacing: 4rpx; margin-bottom: 16rpx; }
-.logo-sub { font-size: 26rpx; color: #999; letter-spacing: 2rpx; }
+.login-page {
+  min-height: 100vh;
+  padding: 56rpx 36rpx 80rpx;
+  box-sizing: border-box;
+}
 
-.form-box { background: #fff; padding: 60rpx 40rpx; border-radius: 40rpx; box-shadow: 0 15rpx 40rpx rgba(103,58,183,0.08); }
-.input-field { height: 100rpx; background: #f8f9fb; border-radius: 20rpx; padding: 0 40rpx; margin-bottom: 40rpx; font-size: 30rpx; color: #333; }
+.hero-card {
+  padding: 36rpx 34rpx;
+  border-radius: 36rpx;
+  background: linear-gradient(140deg, #5f39b8 0%, #734cd4 48%, #8a63e0 100%);
+  color: #fff;
+  box-shadow: 0 24rpx 70rpx rgba(103, 58, 183, 0.18);
+}
 
-.login-btn { background: linear-gradient(135deg, #673AB7, #9C27B0); color: #fff; border-radius: 50rpx; height: 100rpx; line-height: 100rpx; font-size: 34rpx; font-weight: bold; margin-top: 20rpx; box-shadow: 0 10rpx 20rpx rgba(103,58,183,0.3); transition: transform 0.1s; }
-.login-btn:active { transform: scale(0.98); }
+.hero-top {
+  display: flex;
+  flex-direction: column;
+}
 
-.register-link { text-align: center; font-size: 28rpx; color: #673AB7; margin-top: 50rpx; font-weight: bold; }
+.hero-title {
+  font-size: 58rpx;
+  font-weight: 900;
+  letter-spacing: 4rpx;
+  margin-bottom: 16rpx;
+}
+
+.hero-subtitle {
+  font-size: 26rpx;
+  line-height: 1.7;
+  opacity: 0.88;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: 30rpx;
+}
+
+.hero-badge {
+  padding: 10rpx 20rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1rpx solid rgba(255, 255, 255, 0.18);
+}
+
+.form-card {
+  margin-top: 28rpx;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 36rpx;
+  padding: 42rpx 34rpx 48rpx;
+  box-shadow: 0 16rpx 48rpx rgba(31, 38, 135, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.input-block + .input-block {
+  margin-top: 28rpx;
+}
+
+.input-label {
+  display: block;
+  color: #5f6084;
+  font-size: 24rpx;
+  margin-bottom: 14rpx;
+  font-weight: 600;
+}
+
+.input-field {
+  height: 92rpx;
+  border-radius: 24rpx;
+  background: #f5f7fd;
+  padding: 0 28rpx;
+  font-size: 30rpx;
+  color: #20233a;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  margin-top: 40rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  border-radius: 999rpx;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+  background: linear-gradient(135deg, #5c38b0 0%, #7b56d8 100%);
+  box-shadow: 0 16rpx 36rpx rgba(103, 58, 183, 0.24);
+}
+
+.submit-btn::after {
+  border: none;
+}
+
+.tips-box {
+  margin-top: 28rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 24rpx;
+  background: #f8f1ff;
+  color: #7a5bb2;
+  font-size: 24rpx;
+  line-height: 1.7;
+}
+
+.bottom-link {
+  margin-top: 34rpx;
+  text-align: center;
+  color: #5d45bf;
+  font-size: 28rpx;
+  font-weight: 700;
+}

@@ -1,0 +1,55 @@
+<view class="page">
+  <view class="search-box">
+    <icon type="search" size="16" color="#999"></icon>
+    <input
+      class="search-input"
+      value="{{keyword}}"
+      placeholder="搜政策、资料、课程、动态"
+      confirm-type="search"
+      bindinput="handleInput"
+      bindconfirm="searchAll"
+    />
+    <view class="search-btn" bindtap="searchAll">搜索</view>
+  </view>
+
+  <view class="suggestions" wx:if="{{!keyword}}">
+    <text class="suggestions-title">热门搜索</text>
+    <view class="suggestion-list">
+      <view class="suggestion-chip" wx:for="{{suggestions}}" wx:key="*this" data-keyword="{{item}}" bindtap="chooseSuggestion">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <view class="tab-list">
+    <view class="tab-item {{activeTab === item.key ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="key" data-key="{{item.key}}" bindtap="changeTab">
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">搜索中...</view>
+
+  <view class="result-list" wx:if="{{activeTab === 'resource'}}">
+    <view class="result-card" wx:for="{{resourceList}}" wx:key="_id" bindtap="openResource">
+      <text class="result-title">{{item.title}}</text>
+      <text class="result-desc">{{item.type || '学习资料'}} · {{item.points || 0}} 积分</text>
+    </view>
+    <view class="empty" wx:if="{{!loading && keyword && resourceList.length === 0}}">没有找到相关资料</view>
+  </view>
+
+  <view class="result-list" wx:if="{{activeTab === 'course'}}">
+    <view class="result-card" wx:for="{{courseList}}" wx:key="_id" data-item="{{item}}" bindtap="openCourse">
+      <text class="result-title">{{item.title}}</text>
+      <text class="result-desc">{{item.price || 0}} 元 · {{item.schoolName || item.orgName || '课程中心'}}</text>
+    </view>
+    <view class="empty" wx:if="{{!loading && keyword && courseList.length === 0}}">没有找到相关课程</view>
+  </view>
+
+  <view class="result-list" wx:if="{{activeTab === 'moment'}}">
+    <view class="result-card" wx:for="{{momentList}}" wx:key="_id" data-item="{{item}}" bindtap="openMoment">
+      <text class="result-title">{{item.name || '校园动态'}}</text>
+      <text class="result-desc">{{item.content}}</text>
+    </view>
+    <view class="empty" wx:if="{{!loading && keyword && momentList.length === 0}}">没有找到相关动态</view>
+  </view>
+</view>

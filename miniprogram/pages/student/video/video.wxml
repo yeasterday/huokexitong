@@ -1,0 +1,32 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">精品视频</text>
+    <text class="hero-desc">优先看讲解，再去做题和领资料，效率会更高。</text>
+  </view>
+
+  <view class="panel">
+    <view class="panel-header">
+      <text class="panel-title">推荐视频资料</text>
+      <text class="panel-link" bindtap="goResourceCenter">去资料中心 ></text>
+    </view>
+    <view class="video-card" wx:for="{{videoResources}}" wx:key="_id" data-item="{{item}}" bindtap="copyVideoLink">
+      <view class="video-thumb">🎬</view>
+      <view class="video-main">
+        <text class="video-title">{{item.title}}</text>
+        <text class="video-desc">{{item.type || '精品视频'}} · 点击复制观看链接</text>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{videoResources.length === 0}}">暂时还没有整理好的精品视频，老师可以先去资源中心发布。</view>
+  </view>
+
+  <view class="panel">
+    <view class="panel-header">
+      <text class="panel-title">课程推荐</text>
+    </view>
+    <view class="course-card" wx:for="{{courses}}" wx:key="_id" data-item="{{item}}" bindtap="openCourse">
+      <text class="course-title">{{item.title}}</text>
+      <text class="course-desc">{{item.price || 0}} 元 · {{item.schoolName || item.orgName || '课程中心'}}</text>
+    </view>
+    <view class="empty" wx:if="{{courses.length === 0}}">还没有课程内容，后续可在老师端继续补充。</view>
+  </view>
+</view>

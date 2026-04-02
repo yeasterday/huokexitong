@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="header-tips">🛡️ 盟主护卫舰：向左滑动可直接强制下架违规资源</view>
+  <view class="header-tips">当前页展示的是本校区已发布资源，可用于统一审核和下架。</view>
 
   <view class="audit-list">
     <view class="audit-card" wx:for="{{resourceList}}" wx:key="_id">
@@ -9,15 +9,15 @@
       </view>
       <view class="r-title">{{item.title}}</view>
       <view class="r-desc">{{item.content}}</view>
-      
+
       <view class="card-footer">
-        <text class="r-data">下载量: {{item.downloads}}</text>
-        <view class="delete-btn" bindtap="deleteResource" data-id="{{item._id}}">强制下架</view>
+        <text class="r-data">{{item.orgName || item.authorName || '当前校区'}}</text>
+        <view class="delete-btn" bindtap="deleteResource" data-id="{{item._id}}">下架资源</view>
       </view>
     </view>
-    
+
     <view class="empty-state" wx:if="{{resourceList.length === 0}}">
-      太棒了，目前社区风清气正，没有资源需要处理！
+      当前校区还没有需要审核的资源。
     </view>
   </view>
 </view>

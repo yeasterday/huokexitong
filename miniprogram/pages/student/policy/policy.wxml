@@ -1,0 +1,33 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">政策解读</text>
+    <text class="hero-desc">先理清方向，再决定资料、课程和任务怎么安排。</text>
+  </view>
+
+  <view class="section-list">
+    <view class="section-card" wx:for="{{sections}}" wx:key="title">
+      <text class="section-title">{{item.title}}</text>
+      <text class="section-desc">{{item.desc}}</text>
+    </view>
+  </view>
+
+  <view class="quick-actions">
+    <view class="quick-btn" data-keyword="小升初政策" bindtap="goSearch">搜小升初</view>
+    <view class="quick-btn" data-keyword="中考政策" bindtap="goSearch">搜中考</view>
+    <view class="quick-btn" data-keyword="招生解读" bindtap="goSearch">搜招生</view>
+  </view>
+
+  <view class="resource-panel">
+    <view class="panel-header">
+      <text class="panel-title">推荐政策资料</text>
+      <text class="panel-link" bindtap="goResourceCenter">去资料中心 ></text>
+    </view>
+
+    <view class="resource-card" wx:for="{{policyResources}}" wx:key="_id" data-keyword="{{item.title}}" bindtap="goSearch">
+      <text class="resource-title">{{item.title}}</text>
+      <text class="resource-meta">{{item.type || '政策资料'}} · {{item.points || 0}} 积分</text>
+    </view>
+
+    <view class="empty" wx:if="{{policyResources.length === 0}}">还没有匹配到政策资料，可以直接去搜索中心查找。</view>
+  </view>
+</view>

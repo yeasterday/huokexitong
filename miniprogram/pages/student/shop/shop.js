@@ -1,134 +1,208 @@
+const app = getApp();
 const db = wx.cloud.database();
 
-// 🌟 道具说明图鉴：全面对接【五行灵根】系统
-const ITEM_DESC_DICT = {
-  '补天丹': '蕴含纯净灵力的古老丹药，修为值暴增 +200！',
-  '金晶铁': '至坚至锐的金系灵物，永久增加 50 点【金灵根】。',
-  '建木叶': '采集自通天建木的嫩叶，永久增加 50 点【木灵根】。',
-  '天河水': '取自九天之上的天河之水，永久增加 50 点【水灵根】。',
-  '三昧火': '永不熄灭的纯阳真火，永久增加 50 点【火灵根】。',
-  '息壤土': '万土之祖，落地即生，永久增加 50 点【土灵根】。',
-  '全能耀星': '稀有的五行碎片！全系灵根 +30，修为值 +300。'
-};
+function getCategoryKey(item = {}) {
+  const text = String(item.category || '').toLowerCase();
+  if (text.includes('实物') || text.includes('线下') || text.includes('physical')) return 'physical';
+  if (text.includes('宠') || text.includes('道具') || text.includes('pet')) return 'pet';
+  return 'virtual';
+}
+
+function getCategoryLabel(key) {
+  if (key === 'physical') return '实物福利';
+  if (key === 'pet') return '灵宠道具';
+  return '虚拟权益';
+}
 
 Page({
-  data: { 
-    score: 0, 
-    virtualGoods: [], 
-    realGoods: [], 
-    petGoods: [],
+  data: {
+    userInfo: {},
+    score: 0,
+    filter: 'all',
+    itemList: [],
+    displayList: [],
     showBuyModal: false,
     currentBuyItem: null,
-    buyQuantity: 1
+    buyQuantity: 1,
+    addressInfo: '',
   },
 
-  onShow() { 
-    this.loadUserScore(); 
-    this.loadShopItems(); 
+  async onShow() {
+    await app.globalData.sessionReady;
+    this.loadPage();
   },
 
-  // 加载学生当前积分
-  loadUserScore() {
-    const user = wx.getStorageSync('currentUser');
-    if (!user) return;
-    db.collection('users').doc(user._id).get().then(res => {
-      this.setData({ score: res.data.score || 0 });
-    });
+  async loadPage() {
+    const user = app.getCurrentUser() || {};
+    this.setData({ userInfo: user, score: user.score || 0 });
+    await Promise.all([
+      this.loadUserScore(),
+      this.loadShopItems(),
+    ]);
   },
 
-  // 加载商城列表
-  loadShopItems() {
-    db.collection('shop_items').get().then(res => {
-      this.setData({
-        virtualGoods: res.data.filter(item => item.category === '虚拟荣誉'),
-        realGoods: res.data.filter(item => item.category === '线下福利'),
-        petGoods: res.data.filter(item => item.category === '智宠道具') 
-      });
-    });
+  async loadUserScore() {
+    const user = app.getCurrentUser();
+    if (!user || !user._id) return;
+
+    try {
+      const res = await db.collection('users').doc(user._id).get();
+      this.setData({ score: res.data.score || 0, userInfo: res.data });
+    } catch (error) {
+      console.error('load user score error', error);
+    }
   },
 
-  // 唤起结算台
-  exchange(e) {
-    let item = e.currentTarget.dataset.item;
-    
-    // 🌟 动态匹配修仙文案
-    item.desc = ITEM_DESC_DICT[item.name] || 
-      (item.category === '智宠道具' ? '蕴含五行灵力的神秘道具。' : 
-      (item.category === '线下福利' ? '精美实体奖品，兑换后请填写道友地址。' : '专属特权，即刻加持。'));
+  async loadShopItems() {
+    try {
+      const user = app.getCurrentUser() || {};
+      const res = await db.collection('shop_items')
+        .orderBy('createTime', 'desc')
+        .limit(100)
+        .get();
+
+      const itemList = (res.data || [])
+        .filter((item) => item.status !== 'draft')
+        .filter((item) => {
+          if (!user.orgId || !item.orgId) return true;
+          return item.orgId === user.orgId;
+        })
+        .map((item) => ({
+          ...item,
+          categoryKey: getCategoryKey(item),
+          categoryLabel: getCategoryLabel(getCategoryKey(item)),
+        }));
+
+      this.setData({ itemList }, () => this.applyFilter());
+    } catch (error) {
+      console.error('load shop items error', error);
+      wx.showToast({ title: '加载商城失败', icon: 'none' });
+    }
+  },
+
+  changeFilter(e) {
+    const filter = e.currentTarget.dataset.filter;
+    if (!filter || filter === this.data.filter) return;
+    this.setData({ filter }, () => this.applyFilter());
+  },
+
+  applyFilter() {
+    const displayList = this.data.filter === 'all'
+      ? this.data.itemList
+      : this.data.itemList.filter((item) => item.categoryKey === this.data.filter);
+    this.setData({ displayList });
+  },
+
+  async exchange(e) {
+    const item = e.currentTarget.dataset.item;
+    const user = await app.requireLogin();
+    if (!user || !user._id) return;
 
     this.setData({
       showBuyModal: true,
       currentBuyItem: item,
-      buyQuantity: 1 
+      buyQuantity: 1,
+      addressInfo: '',
     });
   },
 
-  closeBuyModal() { this.setData({ showBuyModal: false }); },
-  subQty() { if (this.data.buyQuantity > 1) this.setData({ buyQuantity: this.data.buyQuantity - 1 }); },
-  addQty() { this.setData({ buyQuantity: this.data.buyQuantity + 1 }); },
+  closeBuyModal() {
+    this.setData({ showBuyModal: false });
+  },
 
-  // 确认购买
-  confirmBuy() {
+  stopP() {},
+
+  subQty() {
+    if (this.data.buyQuantity <= 1) return;
+    this.setData({ buyQuantity: this.data.buyQuantity - 1 });
+  },
+
+  addQty() {
+    this.setData({ buyQuantity: this.data.buyQuantity + 1 });
+  },
+
+  handleInput(e) {
+    const field = e.currentTarget.dataset.field;
+    this.setData({ [field]: e.detail.value });
+  },
+
+  async confirmBuy() {
     const item = this.data.currentBuyItem;
     const qty = this.data.buyQuantity;
-    const totalPrice = item.price * qty;
+    if (!item) return;
 
-    if (this.data.score < totalPrice) {
-      return wx.showToast({ title: '灵力积分不足，快去勤勉修习！', icon: 'none' });
+    if (item.categoryKey === 'physical' && !this.data.addressInfo.trim()) {
+      wx.showToast({ title: '请先填写收货信息', icon: 'none' });
+      return;
     }
 
-    if (item.category === '线下福利') {
-      wx.showModal({
-        title: '填写收件信息', editable: true, placeholderText: '请输入收货地址和电话',
-        success: (res) => { if (res.confirm && res.content) this.processExchange(item, res.content, qty, totalPrice); }
+    const totalPoints = (Number(item.price) || 0) * qty;
+    if (this.data.score < totalPoints) {
+      wx.showToast({ title: '积分不足，先去闯关赚积分吧', icon: 'none' });
+      return;
+    }
+
+    wx.showLoading({ title: '提交订单...' });
+
+    try {
+      const user = await app.refreshCurrentUser();
+      const latestScore = user.score || 0;
+      if (latestScore < totalPoints) {
+        wx.hideLoading();
+        wx.showToast({ title: '积分已经变化，请重新下单', icon: 'none' });
+        this.loadPage();
+        return;
+      }
+
+      const updateData = {
+        score: db.command.inc(-totalPoints),
+      };
+
+      if (item.categoryKey === 'pet') {
+        updateData[`bag.${item.name}`] = db.command.inc(qty);
+        updateData[`bagInfo.${item.name}`] = {
+          icon: item.icon || '道具',
+          desc: item.desc || '灵宠道具',
+          effects: item.effects || { exp: 30 },
+        };
+      }
+
+      await db.collection('users').doc(user._id).update({ data: updateData });
+
+      await db.collection('orders').add({
+        data: {
+          userId: user._id,
+          nickname: user.nickname || user.name || '学员',
+          userAvatar: user.avatar || user.avatarUrl || '',
+          orgId: item.orgId || user.orgId || '',
+          orgName: item.orgName || user.orgName || '',
+          itemId: item._id,
+          itemName: item.name,
+          title: item.name,
+          category: item.categoryLabel,
+          categoryKey: item.categoryKey,
+          quantity: qty,
+          unitPrice: Number(item.price) || 0,
+          price: totalPoints,
+          totalPoints,
+          address: item.categoryKey === 'physical' ? this.data.addressInfo.trim() : '',
+          deliveryInfo: '',
+          status: item.categoryKey === 'physical' ? 'pending' : 'completed',
+          createTime: db.serverDate(),
+        },
       });
-    } else {
-      this.processExchange(item, '系统法阵发放', qty, totalPrice);
+
+      wx.hideLoading();
+      this.setData({ showBuyModal: false });
+      wx.showToast({
+        title: item.categoryKey === 'physical' ? '订单已提交' : '兑换成功',
+        icon: 'success',
+      });
+      this.loadPage();
+    } catch (error) {
+      wx.hideLoading();
+      console.error('confirm buy error', error);
+      wx.showToast({ title: '兑换失败，请稍后重试', icon: 'none' });
     }
   },
-
-  // 🌟 核心引擎：处理扣款与存入乾坤袋
-  processExchange(item, addressInfo, qty, totalPrice) {
-    wx.showLoading({ title: '灵力流转中...' });
-    const user = wx.getStorageSync('currentUser');
-    const _ = db.command;
-
-    // 1. 准备更新：扣积分
-    let updateData = { score: _.inc(-totalPrice) };
-
-    // 2. 🌟 乾坤袋逻辑同步
-    if (item.category === '智宠道具') {
-      // 增加数量
-      updateData[`bag.${item.name}`] = _.inc(qty); 
-      // 存储道具静态配置（包含校长设定的 effects 数值）
-      updateData[`bagInfo.${item.name}`] = {
-        icon: item.icon || '🎁',
-        desc: item.desc,
-        // 这里的 effects 包含 jin, mu, shui, huo, tu, exp
-        effects: item.effects || { exp: 50 } 
-      };
-    }
-
-    db.collection('users').doc(user._id).update({ data: updateData }).then(() => {
-      // 记录非道具类的订单（用于老师后台核销）
-      if (item.category !== '智宠道具') {
-        db.collection('orders').add({
-          data: { 
-            userId: user._id, 
-            nickname: user.nickname, 
-            itemName: `${item.name} x${qty}`, 
-            price: totalPrice, 
-            address: addressInfo, 
-            status: '待发货', 
-            createTime: db.serverDate() 
-          }
-        });
-      }
-      
-      wx.hideLoading();
-      this.closeBuyModal(); 
-      wx.showToast({ title: '已收入乾坤袋', icon: 'success' });
-      this.loadUserScore(); // 刷新本地积分显示
-    });
-  }
 });

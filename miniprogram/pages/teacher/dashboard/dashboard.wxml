@@ -1,66 +1,73 @@
 <view class="dashboard-container">
   <view class="header-card">
     <view class="org-info">
-      <view class="org-name">{{institutionName}}</view>
-      <view class="org-status">系统运行正常 🟢</view>
+      <view>
+        <view class="org-name">{{orgName || '当前校区'}}</view>
+        <view class="org-status">教师工作台已切换到真实机构数据</view>
+      </view>
+      <view class="org-status" bindtap="copyInviteCode" wx:if="{{inviteCode}}">邀请码 {{inviteCode}}</view>
     </view>
-    
+
     <view class="data-grid">
       <view class="data-item">
-        <text class="data-num">{{newLeads}}</text>
-        <text class="data-label">今日新线索</text>
+        <text class="data-num">{{todayCheckins}}</text>
+        <text class="data-label">今日签到</text>
       </view>
       <view class="data-item">
-        <text class="data-num">{{todayCheckins}}</text>
-        <text class="data-label">今日打卡</text>
+        <text class="data-num">{{todayQuests}}</text>
+        <text class="data-label">今日闯关</text>
       </view>
       <view class="data-item">
         <text class="data-num">{{totalStudents}}</text>
         <text class="data-label">在读学员</text>
       </view>
+      <view class="data-item">
+        <text class="data-num">{{pendingOrders}}</text>
+        <text class="data-label">待发货订单</text>
+      </view>
     </view>
   </view>
 
   <view class="module-box">
-    <view class="module-title">教务督学中心</view>
+    <view class="module-title">教学与运营</view>
     <view class="tool-grid">
       <view class="tool-item" bindtap="goToStudents">
-        <view class="tool-icon bg-blue">👨‍🎓</view>
+        <view class="tool-icon bg-blue">学生</view>
         <text class="tool-text">学员档案</text>
       </view>
-      <view class="tool-item" bindtap="goToClasses">
-        <view class="tool-icon bg-green">🏫</view>
-        <text class="tool-text">班级管理</text>
+      <view class="tool-item" bindtap="goToReport">
+        <view class="tool-icon bg-green">报告</view>
+        <text class="tool-text">学习报表</text>
       </view>
-      <view class="tool-item" bindtap="comingSoon">
-        <view class="tool-icon bg-orange">✅</view>
-        <text class="tool-text">作业批改</text>
+      <view class="tool-item" bindtap="goToPromote">
+        <view class="tool-icon bg-orange">拉新</view>
+        <text class="tool-text">招生推广</text>
       </view>
-      <view class="tool-item" bindtap="comingSoon">
-        <view class="tool-icon bg-purple">📊</view>
-        <text class="tool-text">学情报告</text>
+      <view class="tool-item" bindtap="goToAudit">
+        <view class="tool-icon bg-purple">审核</view>
+        <text class="tool-text">资源审核</text>
       </view>
     </view>
   </view>
 
   <view class="module-box">
-    <view class="module-title">招生裂变工具</view>
+    <view class="module-title">内容与商城</view>
     <view class="tool-grid">
-      <view class="tool-item highlight" bindtap="goToPosterConfig">
-        <view class="tool-icon">📸</view>
-        <text class="tool-text">战绩海报</text>
+      <view class="tool-item highlight" bindtap="goToAddResource">
+        <view class="tool-icon">资源</view>
+        <text class="tool-text">发布资源</text>
       </view>
-      <view class="tool-item" bindtap="comingSoon">
-        <view class="tool-icon bg-pink">🎁</view>
-        <text class="tool-text">体验课引流</text>
+      <view class="tool-item" bindtap="goToManageShop">
+        <view class="tool-icon bg-pink">{{shopCount}}</view>
+        <text class="tool-text">商城商品</text>
       </view>
-      <view class="tool-item" bindtap="comingSoon">
-        <view class="tool-icon bg-yellow">积分</view>
-        <text class="tool-text">积分商城</text>
+      <view class="tool-item" bindtap="goToOrderList">
+        <view class="tool-icon bg-yellow">{{pendingOrders}}</view>
+        <text class="tool-text">订单处理</text>
       </view>
-      <view class="tool-item" bindtap="comingSoon">
-        <view class="tool-icon bg-gray">⚙️</view>
-        <text class="tool-text">机构设置</text>
+      <view class="tool-item" bindtap="goToAddResource">
+        <view class="tool-icon bg-gray">{{resourceCount}}</view>
+        <text class="tool-text">资源总数</text>
       </view>
     </view>
   </view>

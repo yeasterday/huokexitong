@@ -112,7 +112,8 @@ toggleLike(e) {
           data: {
             receiverId: moment.userId, // 接收消息的人
             senderName: newComment.name,
-            senderAvatar: this.data.userInfo.avatar,
+            type: 'comment',
+            senderAvatar: this.data.userInfo.avatar || this.data.userInfo.avatarUrl || '',
             content: content,
             momentText: moment.content.substring(0, 15) + '...', // 截取一小段原贴内容
             createTime: db.serverDate(),

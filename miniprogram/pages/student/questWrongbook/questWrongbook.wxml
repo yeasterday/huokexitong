@@ -1,0 +1,54 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">错词本</view>
+    <view class="hero-subtitle">错误会自动收录在这里，越早回看，记得越牢。</view>
+  </view>
+
+  <view class="toolbar">
+    <view class="search-box">
+      <input class="search-input" placeholder="搜索单词或释义" bindinput="handleKeyword" value="{{keyword}}" />
+    </view>
+    <view class="filter-row">
+      <view class="filter-chip {{filter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="changeFilter">全部</view>
+      <view class="filter-chip {{filter === 'zhongkao' ? 'active' : ''}}" data-filter="zhongkao" bindtap="changeFilter">中考</view>
+      <view class="filter-chip {{filter === 'gaokao' ? 'active' : ''}}" data-filter="gaokao" bindtap="changeFilter">高考</view>
+    </view>
+  </view>
+
+  <view class="state-box" wx:if="{{loading}}">正在整理错词本...</view>
+
+  <block wx:elif="{{displayList.length === 0}}">
+    <view class="empty-box">
+      <view class="empty-title">错词本还是空的</view>
+      <view class="empty-desc">继续闯关时答错的单词，会自动沉淀到这里。</view>
+      <button class="primary-btn" bindtap="goQuest">去闯关</button>
+    </view>
+  </block>
+
+  <view class="list" wx:else>
+    <view class="word-card" wx:for="{{displayList}}" wx:key="_id">
+      <view class="word-head">
+        <view>
+          <view class="word-text">{{item.word}}</view>
+          <view class="phonetic">{{item.phonetic || item.bankName}}</view>
+        </view>
+        <view class="count-tag">错 {{item.wrongCount || 1}} 次</view>
+      </view>
+
+      <view class="word-meaning">{{item.zh}}</view>
+
+      <view class="example-box" wx:if="{{item.exEn || item.exZh}}">
+        <view class="example-en">{{item.exEn}}</view>
+        <view class="example-zh">{{item.exZh}}</view>
+      </view>
+
+      <view class="word-foot">
+        <text class="time-text">最近错误 {{item.timeText}}</text>
+        <view class="action-group">
+          <view class="ghost-btn" bindtap="playWord" data-word="{{item.word}}">发音</view>
+          <view class="danger-btn" bindtap="removeWord" data-id="{{item._id}}">移除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

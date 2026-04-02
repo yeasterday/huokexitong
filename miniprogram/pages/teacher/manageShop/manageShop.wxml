@@ -1,7 +1,7 @@
 <view class="container">
   <view class="header-card">
-    <view class="points-val">商城仓库管理</view>
-    
+    <view class="points-val">商城商品管理</view>
+
     <view class="add-btn" bindtap="goToAdd">
       <text class="plus-icon">+</text> 上架商品
     </view>
@@ -11,14 +11,13 @@
   </view>
 
   <view class="module-box">
-    <view class="module-title">我的商品仓库</view>
+    <view class="module-title">当前校区商品</view>
     <view class="item-list">
-      
-      <view class="empty-tip" wx:if="{{itemList.length === 0}}">仓库空空如也，快去上架商品吧！</view>
+      <view class="empty-tip" wx:if="{{itemList.length === 0}}">还没有商品，先去上架一个吧。</view>
 
       <view class="item-card" wx:for="{{itemList}}" wx:key="_id">
         <view class="item-main">
-          <text class="item-icon">🎁</text> 
+          <text class="item-icon">{{item.icon || '礼'}}</text>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
             <view class="tag-row">

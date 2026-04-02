@@ -2,31 +2,30 @@
   <view class="tool-bar">
     <view class="search-box">
       <icon type="search" size="16"></icon>
-      <input placeholder="搜索学员姓名" bindinput="onSearch" />
+      <input placeholder="搜索姓名、昵称或手机号" bindinput="onSearch" />
     </view>
-    <button wx:if="{{isDemo}}" class="inject-btn" bindtap="injectData">一键注入学霸</button>
   </view>
 
   <view class="count-tag">共 {{students.length}} 位学员</view>
 
   <scroll-view scroll-y class="list-view">
     <view class="student-card" wx:for="{{students}}" wx:key="_id">
-      <image class="avatar" src="{{item.avatar || '/images/default-avatar.png'}}"></image>
+      <image class="avatar" src="{{item.avatar || item.avatarUrl || '/images/default-avatar.png'}}"></image>
       <view class="info">
         <view class="name-row">
-          <text class="name">{{item.name}}</text>
-          <text class="grade-tag">{{item.grade}}</text>
+          <text class="name">{{item.nickname || item.name || '未命名学员'}}</text>
+          <text class="grade-tag">{{item.profile.grade || '未填写年级'}}</text>
         </view>
-        <view class="detail">积分：{{item.points || 0}} | 闯关：第 {{item.level || 1}} 关</view>
+        <view class="detail">积分 {{item.score || 0}} | 已学词 {{item.learnedWords || 0}}</view>
+        <view class="detail">{{item.phone || '未绑定手机号'}}{{item.profile.targetSchool ? ' | ' + item.profile.targetSchool : ''}}</view>
       </view>
       <view class="status {{item.active ? 'active' : ''}}">
-        {{item.active ? '今日已打卡' : '未打卡'}}
+        {{item.active ? '今日已签到' : '今日未签到'}}
       </view>
     </view>
-    
-    <view class="empty-box" wx:if="{{students.length === 0}}">
-      <image src="/images/empty.png" mode="aspectFit"></image>
-      <text>暂无学员，请点击上方注入数据</text>
+
+    <view class="empty-box" wx:if="{{!loading && students.length === 0}}">
+      <text>当前校区还没有学员，或者搜索条件下暂无结果。</text>
     </view>
   </scroll-view>
 </view>

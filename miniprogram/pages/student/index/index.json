@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "青水SaaS平台",
+  "navigationBarTitleText": "青源智盟",
+  "navigationBarBackgroundColor": "#5f39b8",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
   "usingComponents": {}
 }

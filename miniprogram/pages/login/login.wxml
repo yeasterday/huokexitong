@@ -1,14 +1,52 @@
-<view class="login-container">
-  <view class="logo-box">
-    <view class="logo-text">青源智盟</view>
-    <view class="logo-sub">开启你的智慧之旅</view>
+<view class="login-page">
+  <view class="hero-card">
+    <view class="hero-top">
+      <text class="hero-title">青源智盟</text>
+      <text class="hero-subtitle">登录后会自动绑定当前微信，下次可直接进入</text>
+    </view>
+    <view class="hero-badges">
+      <text class="hero-badge">微信回流</text>
+      <text class="hero-badge">学习积分</text>
+      <text class="hero-badge">机构校区</text>
+    </view>
   </view>
 
-  <view class="form-box">
-    <input class="input-field" type="text" placeholder="请输入登录账号" model:value="{{account}}" />
-    <input class="input-field" type="text" password="true" placeholder="请输入密码" model:value="{{password}}" />
-    
-    <button class="login-btn" bindtap="handleLogin">登 录</button>
-    <view class="register-link" bindtap="goToRegister">还没有账号？点击这里注册</view>
+  <view class="form-card">
+    <view class="input-block">
+      <text class="input-label">手机号账号</text>
+      <input
+        class="input-field"
+        type="number"
+        maxlength="11"
+        placeholder="请输入注册手机号"
+        value="{{account}}"
+        data-field="account"
+        bindinput="handleInput"
+      />
+    </view>
+
+    <view class="input-block">
+      <text class="input-label">登录密码</text>
+      <input
+        class="input-field"
+        password="true"
+        placeholder="请输入密码"
+        value="{{password}}"
+        data-field="password"
+        bindinput="handleInput"
+      />
+    </view>
+
+    <button class="submit-btn" loading="{{loading}}" bindtap="handleLogin">
+      登录并绑定当前微信
+    </button>
+
+    <view class="tips-box">
+      <text>首次登录会自动绑定当前微信，后续打开小程序可直接回到学习首页。</text>
+    </view>
+
+    <view class="bottom-link" bindtap="goToRegister">
+      还没有账号？去注册并直接开始体验
+    </view>
   </view>
 </view>

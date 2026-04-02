@@ -1,0 +1,104 @@
+page {
+  background: linear-gradient(180deg, #f6f3ff 0%, #f7f8fb 100%);
+}
+
+.page {
+  min-height: 100vh;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.detail-card {
+  padding: 34rpx 30rpx;
+  border-radius: 32rpx;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16rpx 40rpx rgba(31, 38, 135, 0.07);
+}
+
+.detail-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-tag {
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(95, 57, 184, 0.1);
+  color: #5f39b8;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.detail-time {
+  font-size: 24rpx;
+  color: #9aa0b5;
+}
+
+.detail-author {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  margin-top: 28rpx;
+}
+
+.author-avatar {
+  width: 86rpx;
+  height: 86rpx;
+  border-radius: 50%;
+  background: #ede7f6;
+}
+
+.author-avatar.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5f39b8;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #20233a;
+}
+
+.author-action {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #7c8298;
+}
+
+.detail-content {
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  color: #2f3348;
+  line-height: 1.9;
+}
+
+.detail-quote {
+  margin-top: 28rpx;
+  padding: 24rpx;
+  border-radius: 24rpx;
+  background: #f6f7fb;
+}
+
+.quote-label {
+  display: block;
+  font-size: 22rpx;
+  color: #969db1;
+}
+
+.quote-text {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #565c73;
+  line-height: 1.8;
+}

@@ -1,7 +1,28 @@
 <view class="container">
   <view class="header">
-    <text class="title">获客活动方案</text>
-    <text class="subtitle">设计精美海报，让家长主动为你转发</text>
+    <text class="title">招生推广</text>
+    <text class="subtitle">{{orgName || '当前校区'}} 的内容引流与邀请码拉新建议</text>
+  </view>
+
+  <view class="invite-card">
+    <view class="invite-title">当前邀请码</view>
+    <view class="invite-code">{{inviteCode || '未配置'}}</view>
+    <button class="share-btn" bindtap="copyInviteCode">复制邀请码</button>
+  </view>
+
+  <view class="stats-row">
+    <view class="stats-item">
+      <text class="stats-num">{{stats.students}}</text>
+      <text class="stats-label">校区学员</text>
+    </view>
+    <view class="stats-item">
+      <text class="stats-num">{{stats.resources}}</text>
+      <text class="stats-label">已发资源</text>
+    </view>
+    <view class="stats-item">
+      <text class="stats-num">{{stats.shopItems}}</text>
+      <text class="stats-label">商城商品</text>
+    </view>
   </view>
 
   <view class="promo-card" wx:for="{{promotions}}" wx:key="id">
@@ -11,10 +32,8 @@
     </view>
     <view class="promo-desc">{{item.desc}}</view>
     <view class="promo-footer">
-      <text class="stats">已带来：{{item.leads}} 位新客</text>
+      <text class="stats">当前相关数量：{{item.leads}}</text>
       <button class="share-btn" bindtap="previewPoster" data-item="{{item}}">预览海报</button>
     </view>
   </view>
-
-  <button class="add-btn">+ 创建新引流活动</button>
 </view>

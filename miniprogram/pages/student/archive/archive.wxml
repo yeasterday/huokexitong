@@ -1,0 +1,68 @@
+<view class="page" wx:if="{{!loading}}">
+  <view class="hero-card">
+    <view class="hero-title">学习档案</view>
+    <view class="hero-subtitle">把你的目标、年级和所在城市补齐，推荐内容会更精准。</view>
+
+    <view class="progress-row">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{profilePercent}}%;"></view>
+      </view>
+      <text class="progress-num">{{profilePercent}}%</text>
+    </view>
+
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-value">{{stats.totalLearned}}</text>
+        <text class="stat-label">累计学习词数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{stats.score}}</text>
+        <text class="stat-label">当前积分</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{stats.streak}}</text>
+        <text class="stat-label">连学天数</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">基础信息</view>
+    <view class="readonly-row">
+      <text class="readonly-label">当前账号</text>
+      <text class="readonly-value">{{userInfo.account || userInfo.phone || '未绑定'}}</text>
+    </view>
+    <view class="readonly-row">
+      <text class="readonly-label">所属校区</text>
+      <text class="readonly-value">{{userInfo.orgName || '暂未加入校区'}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">学习画像</view>
+    <view class="field-item">
+      <text class="field-label">当前年级</text>
+      <input class="field-input" placeholder="例如：初三 / 高一 / 六年级" value="{{profile.grade}}" data-field="grade" bindinput="handleInput" />
+    </view>
+    <view class="field-item">
+      <text class="field-label">所在城市</text>
+      <input class="field-input" placeholder="例如：杭州 / 深圳" value="{{profile.city}}" data-field="city" bindinput="handleInput" />
+    </view>
+    <view class="field-item">
+      <text class="field-label">目标学校</text>
+      <input class="field-input" placeholder="例如：杭二中 / 深中" value="{{profile.targetSchool}}" data-field="targetSchool" bindinput="handleInput" />
+    </view>
+    <view class="field-item">
+      <text class="field-label">学习目标</text>
+      <input class="field-input" placeholder="例如：中考英语 110+ / 词汇量提升" value="{{profile.learningGoal}}" data-field="learningGoal" bindinput="handleInput" />
+    </view>
+    <view class="field-item">
+      <text class="field-label">自我介绍</text>
+      <textarea class="field-textarea" maxlength="120" placeholder="补充你的兴趣、薄弱点或想突破的地方" value="{{profile.bio}}" data-field="bio" bindinput="handleInput"></textarea>
+    </view>
+  </view>
+
+  <view class="footer-action">
+    <button class="save-btn" bindtap="saveArchive">保存学习档案</button>
+  </view>
+</view>

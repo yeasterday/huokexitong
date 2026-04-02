@@ -1,24 +1,43 @@
 <view class="container">
   <view class="header">
-    <text class="title">全校经营月报</text>
-    <button class="export-btn" bindtap="doExport">导出 Excel 发至邮箱</button>
+    <text class="title">{{monthText}} 学习报表</text>
+    <button class="export-btn" bindtap="doExport">复制摘要</button>
+  </view>
+
+  <view class="summary-card">
+    <view class="summary-item">
+      <text class="summary-value">{{summary.students}}</text>
+      <text class="summary-label">学员数</text>
+    </view>
+    <view class="summary-item">
+      <text class="summary-value">{{summary.checkins}}</text>
+      <text class="summary-label">签到次数</text>
+    </view>
+    <view class="summary-item">
+      <text class="summary-value">{{summary.quests}}</text>
+      <text class="summary-label">闯关次数</text>
+    </view>
+    <view class="summary-item">
+      <text class="summary-value">{{summary.learnedWords}}</text>
+      <text class="summary-label">累计词数</text>
+    </view>
   </view>
 
   <view class="report-table">
     <view class="table-header">
-      <text class="col">学员姓名</text>
-      <text class="col">本月打卡</text>
-      <text class="col">闯关总数</text>
-      <text class="col">剩余积分</text>
+      <text class="col">学员</text>
+      <text class="col">签到</text>
+      <text class="col">闯关</text>
+      <text class="col">词数</text>
     </view>
-    
-    <view class="table-row" wx:for="{{reportData}}" wx:key="name">
+
+    <view class="table-row" wx:for="{{reportData}}" wx:key="_id">
       <text class="col">{{item.name}}</text>
-      <text class="col">{{item.checkins}}次</text>
-      <text class="col">{{item.levels}}关</text>
-      <text class="col">{{item.points}}</text>
+      <text class="col">{{item.checkins}}</text>
+      <text class="col">{{item.levels}}</text>
+      <text class="col">{{item.learnedWords}}</text>
     </view>
   </view>
 
-  <view class="tip">以上数据由青水 SaaS 系统自动实时汇总</view>
+  <view class="tip">报表基于当前教师所属校区的真实学生、签到和闯关数据自动汇总。</view>
 </view>

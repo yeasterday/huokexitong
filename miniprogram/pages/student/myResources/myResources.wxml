@@ -1,28 +1,37 @@
-<view class="container">
-  <view class="header">
-    <text class="title">我的专属书包 🎒</text>
-    <text class="subtitle">这里装着你用智慧换来的所有宝藏</text>
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">我的资料</view>
+    <view class="hero-subtitle">兑换过的资料都会沉淀在这里，随时回来取用。</view>
   </view>
 
-  <view class="loading-state" wx:if="{{isLoading}}">翻找书包中...</view>
-
-  <view class="empty-state" wx:if="{{!isLoading && myList.length === 0}}">
-    <view class="empty-icon">📭</view>
-    <text>书包空空如也，快去资源贴吧寻宝吧！</text>
+  <view class="filter-row">
+    <view class="filter-chip {{filter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="changeFilter">全部</view>
+    <view class="filter-chip {{filter === 'policy' ? 'active' : ''}}" data-filter="policy" bindtap="changeFilter">政策</view>
+    <view class="filter-chip {{filter === 'video' ? 'active' : ''}}" data-filter="video" bindtap="changeFilter">视频</view>
+    <view class="filter-chip {{filter === 'material' ? 'active' : ''}}" data-filter="material" bindtap="changeFilter">资料</view>
   </view>
 
-  <view class="resource-list" wx:if="{{myList.length > 0}}">
-    <view class="resource-card" wx:for="{{myList}}" wx:key="_id">
-      <view class="card-top">
-        <text class="r-type">{{item.type || '学习资料'}}</text>
-        <text class="r-time">已解锁 · 永久有效</text>
+  <view class="state-box" wx:if="{{loading}}">正在加载我的资料...</view>
+
+  <block wx:elif="{{displayList.length === 0}}">
+    <view class="empty-box">
+      <view class="empty-title">资料库还是空的</view>
+      <view class="empty-desc">去资料中心解锁内容后，会自动保存到这里。</view>
+      <button class="primary-btn" bindtap="goToResourceCenter">去资料中心</button>
+    </view>
+  </block>
+
+  <view class="list" wx:else>
+    <view class="resource-card" wx:for="{{displayList}}" wx:key="_id">
+      <view class="card-head">
+        <view class="type-tag">{{item.type || '学习资料'}}</view>
+        <view class="time-tag">{{item.timeText}}</view>
       </view>
-      
-      <view class="r-title">{{item.title}}</view>
-      
-      <view class="card-bottom">
-        <view class="r-points" style="color:#4CAF50; font-weight:bold;">✅ 兑换成功</view>
-        <view class="copy-btn" bindtap="copyLink" data-link="{{item.fileId || item.link}}">提取资料</view>
+      <view class="resource-title">{{item.title}}</view>
+      <view class="resource-desc">{{item.content || '已成功解锁，可随时提取。'}}</view>
+      <view class="card-foot">
+        <text class="org-text">{{item.orgName || '课程中心'}}</text>
+        <view class="copy-btn" bindtap="copyLink" data-item="{{item}}">提取链接</view>
       </view>
     </view>
   </view>

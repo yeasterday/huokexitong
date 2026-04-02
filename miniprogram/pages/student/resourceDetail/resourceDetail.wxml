@@ -1,38 +1,39 @@
-<view class="resource-container">
-  
-  <view class="search-header">
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">资料中心</view>
+    <view class="hero-subtitle">把政策、课程视频和学习资料集中到一个入口里。</view>
+
     <view class="search-box">
-      <icon type="search" size="16" color="#999"></icon>
-      <input class="search-input" type="text" placeholder="搜索历年真题、政策解析..." confirm-type="search" model:value="{{keyword}}" bindconfirm="onSearch" />
-      <icon type="clear" size="16" color="#ccc" wx:if="{{keyword}}" bindtap="clearSearch" class="clear-icon"></icon>
+      <input class="search-input" placeholder="搜索资料标题、类型或内容" value="{{keyword}}" bindinput="handleInput" confirm-type="search" bindconfirm="onSearch" />
+      <view class="search-action" bindtap="onSearch">搜索</view>
+    </view>
+
+    <view class="filter-row">
+      <view class="filter-chip {{filter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="changeFilter">全部</view>
+      <view class="filter-chip {{filter === 'policy' ? 'active' : ''}}" data-filter="policy" bindtap="changeFilter">政策</view>
+      <view class="filter-chip {{filter === 'video' ? 'active' : ''}}" data-filter="video" bindtap="changeFilter">视频</view>
+      <view class="filter-chip {{filter === 'material' ? 'active' : ''}}" data-filter="material" bindtap="changeFilter">资料</view>
     </view>
   </view>
 
-  <view class="list-section">
+  <view class="list">
     <view class="resource-card" wx:for="{{resourceList}}" wx:key="_id">
-      <view class="card-tags">
-        <view class="tag-official"><text class="diamond">💎</text> 官方认证资料</view>
-        <view class="tag-category" wx:if="{{item.type}}">#{{item.type}}</view>
+      <view class="card-head">
+        <view class="type-tag">{{item.type || '学习资料'}}</view>
+        <view class="points-tag">{{item.points || 10}} 积分</view>
       </view>
-      
-      <view class="card-title">{{item.title}}</view>
-      
-      <view class="card-bottom">
-        <view class="hot-stats">🔥 {{item.downloads || 0}}人已领取</view>
-        <view class="download-btn" bindtap="handleDownload" data-item="{{item}}">
-          消耗 {{item.points || 10}} 积分下载
-        </view>
+      <view class="resource-title">{{item.title}}</view>
+      <view class="resource-desc">{{item.content || '教师已发布可解锁内容，兑换后会自动进入我的资料。'}}</view>
+      <view class="resource-foot">
+        <text class="resource-org">{{item.orgName || item.authorName || '课程中心'}}</text>
+        <view class="unlock-btn" bindtap="handleDownload" data-item="{{item}}">立即解锁</view>
       </view>
     </view>
 
-    <view class="empty-tip" wx:if="{{resourceList.length === 0}}">
-      <text>没有找到相关资源哦~</text>
-    </view>
+    <view class="state-box" wx:if="{{!loading && resourceList.length === 0}}">暂时没有符合条件的资料</view>
+    <view class="state-box" wx:if="{{loading}}">正在加载资源...</view>
+    <view class="state-box" wx:if="{{!loading && resourceList.length > 0 && !hasMore}}">已经到底了</view>
   </view>
 
-  <view class="fab-btn" bindtap="goToPublishResource">
-    <text class="fab-icon">+</text>
-    <text class="fab-text">发资源</text>
-  </view>
-
+  <view class="fab-btn" wx:if="{{canPublish}}" bindtap="goToPublishResource">发布</view>
 </view>

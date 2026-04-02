@@ -1,0 +1,43 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">成长时间线</view>
+    <view class="hero-subtitle">把签到、闯关、资料解锁、订单和动态汇总成一条连续的成长轨迹。</view>
+  </view>
+
+  <view class="summary-card">
+    <view class="summary-item">
+      <text class="summary-value">{{summary.checkins}}</text>
+      <text class="summary-label">签到记录</text>
+    </view>
+    <view class="summary-item">
+      <text class="summary-value">{{summary.quests}}</text>
+      <text class="summary-label">闯关记录</text>
+    </view>
+    <view class="summary-item">
+      <text class="summary-value">{{summary.resources}}</text>
+      <text class="summary-label">资料解锁</text>
+    </view>
+    <view class="summary-item">
+      <text class="summary-value">{{summary.posts}}</text>
+      <text class="summary-label">动态发布</text>
+    </view>
+  </view>
+
+  <view class="state-box" wx:if="{{loading}}">正在生成你的成长时间线...</view>
+
+  <view class="empty-box" wx:elif="{{timeline.length === 0}}">
+    <view class="empty-title">还没有成长记录</view>
+    <view class="empty-desc">先去完成签到、闯关或者兑换资料，这里会自动记录下来。</view>
+  </view>
+
+  <view class="timeline" wx:else>
+    <view class="timeline-item" wx:for="{{timeline}}" wx:key="id">
+      <view class="timeline-dot {{item.type}}"></view>
+      <view class="timeline-card">
+        <view class="timeline-title">{{item.title}}</view>
+        <view class="timeline-desc">{{item.desc}}</view>
+        <view class="timeline-time">{{item.timeText}}</view>
+      </view>
+    </view>
+  </view>
+</view>

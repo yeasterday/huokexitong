@@ -1,57 +1,83 @@
-const db = wx.cloud.database();
+const app = getApp();
 
 Page({
   data: {
     account: '',
-    password: ''
+    password: '',
+    loading: false,
   },
 
-  handleLogin() {
+  async onShow() {
+    await app.globalData.sessionReady;
+    const user = app.getCurrentUser();
+    if (user && user._id) {
+      this.redirectAfterLogin();
+    }
+  },
+
+  handleInput(e) {
+    const field = e.currentTarget.dataset.field;
+    this.setData({
+      [field]: e.detail.value,
+    });
+  },
+
+  async handleLogin() {
     const { account, password } = this.data;
-    
     if (!account || !password) {
-      return wx.showToast({ title: '账号密码不能为空', icon: 'none' });
+      wx.showToast({ title: '账号和密码都要填写', icon: 'none' });
+      return;
     }
 
-    wx.showLoading({ title: '正在登录...' });
+    if (this.data.loading) return;
 
-    // 去数据库比对账号和密码
-    db.collection('users').where({
-      account: account,
-      password: password
-    }).get().then(res => {
-      wx.hideLoading();
-      
-      if (res.data.length > 0) {
-        const user = res.data[0];
-        
-        // 登录成功，把信息存入咱们的“专属抽屉”
-        wx.setStorageSync('userInfo', user);
-        wx.setStorageSync('currentUser', user);
-        
-        wx.showToast({ title: '登录成功', icon: 'success' });
-        
-        // 延迟一秒退回到之前的页面
-        setTimeout(() => {
-          wx.navigateBack({
-            fail: () => {
-              // 如果没有上一页，就跳回首页
-              wx.switchTab({ url: '/pages/student/index/index' });
-            }
-          });
-        }, 1000);
-      } else {
-        // 查不到数据，说明账号或密码错了
-        wx.showToast({ title: '账号或密码错误', icon: 'error' });
+    this.setData({ loading: true });
+    wx.showLoading({ title: '登录中...' });
+
+    try {
+      const res = await wx.cloud.callFunction({
+        name: 'auth',
+        data: {
+          action: 'login',
+          account: account.trim(),
+          password,
+        },
+      });
+      const result = res.result || {};
+      if (!result.success || !result.user) {
+        wx.hideLoading();
+        this.setData({ loading: false });
+        wx.showToast({ title: result.message || '登录失败', icon: 'none' });
+        return;
       }
-    }).catch(err => {
+
+      app.setCurrentUser(result.user);
+      await app.updateUnreadBadge();
+
       wx.hideLoading();
-      console.error("登录异常", err);
-      wx.showToast({ title: '网络开小差了', icon: 'none' });
+      this.setData({ loading: false });
+      wx.showToast({ title: '登录成功', icon: 'success' });
+
+      setTimeout(() => {
+        this.redirectAfterLogin();
+      }, 500);
+    } catch (error) {
+      wx.hideLoading();
+      this.setData({ loading: false });
+      console.error('login error', error);
+      wx.showToast({ title: '网络异常，请稍后重试', icon: 'none' });
+    }
+  },
+
+  redirectAfterLogin() {
+    wx.navigateBack({
+      fail: () => {
+        wx.switchTab({ url: '/pages/student/index/index' });
+      },
     });
   },
 
   goToRegister() {
     wx.navigateTo({ url: '/pages/login/register' });
-  }
+  },
 });

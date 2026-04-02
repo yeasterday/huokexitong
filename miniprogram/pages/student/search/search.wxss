@@ -1,0 +1,17 @@
+page { background: #f6f7fb; }
+.page { min-height: 100vh; padding: 26rpx; box-sizing: border-box; }
+.search-box { background: #fff; border-radius: 999rpx; display: flex; align-items: center; padding: 0 18rpx 0 26rpx; box-shadow: 0 10rpx 24rpx rgba(0,0,0,0.04); }
+.search-input { flex: 1; height: 84rpx; margin-left: 14rpx; font-size: 28rpx; }
+.search-btn { height: 64rpx; line-height: 64rpx; padding: 0 26rpx; border-radius: 999rpx; background: #5f39b8; color: #fff; font-size: 24rpx; font-weight: 700; }
+.suggestions { margin-top: 26rpx; }
+.suggestions-title { font-size: 28rpx; font-weight: 700; color: #2f3348; }
+.suggestion-list { display: flex; flex-wrap: wrap; gap: 16rpx; margin-top: 18rpx; }
+.suggestion-chip { padding: 14rpx 24rpx; border-radius: 999rpx; background: #fff; color: #5f39b8; font-size: 24rpx; box-shadow: 0 6rpx 18rpx rgba(0,0,0,0.04); }
+.tab-list { display: flex; gap: 16rpx; margin: 28rpx 0 22rpx; }
+.tab-item { flex: 1; text-align: center; padding: 16rpx 0; border-radius: 18rpx; background: #fff; color: #7b8093; font-size: 24rpx; font-weight: 700; }
+.tab-item.active { background: #5f39b8; color: #fff; }
+.loading, .empty { text-align: center; color: #9aa0b5; font-size: 24rpx; padding: 36rpx 0; }
+.result-list { display: flex; flex-direction: column; gap: 18rpx; }
+.result-card { padding: 26rpx 24rpx; border-radius: 24rpx; background: #fff; box-shadow: 0 10rpx 22rpx rgba(0,0,0,0.04); }
+.result-title { display: block; font-size: 30rpx; font-weight: 700; color: #20233a; }
+.result-desc { display: block; margin-top: 12rpx; font-size: 24rpx; color: #7d8399; line-height: 1.7; }

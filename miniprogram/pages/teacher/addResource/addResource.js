@@ -1,4 +1,6 @@
+const app = getApp();
 const db = wx.cloud.database();
+const { getOrgScope } = require('../../../utils/org');
 
 Page({
   data: {
@@ -6,45 +8,55 @@ Page({
     points: '',
     content: '',
     link: '',
-    typeList: ['备考真题', '学术笔记', '职场干货', '技能培训'],
-    typeIndex: 0
+    typeList: ['政策解读', '精品视频', '备考真题', '学习笔记', '招生素材'],
+    typeIndex: 0,
   },
 
   onTypeChange(e) {
-    this.setData({ typeIndex: e.detail.value });
+    this.setData({ typeIndex: Number(e.detail.value) });
   },
 
-  submitResource() {
+  async submitResource() {
     const { title, points, content, link, typeList, typeIndex } = this.data;
-
-    // 简单校验
-    if (!title || !points || !content) {
-      wx.showToast({ title: '请填写完整信息', icon: 'none' });
+    if (!title.trim() || !content.trim()) {
+      wx.showToast({ title: '请先填写资源标题和介绍', icon: 'none' });
       return;
     }
 
-    wx.showLoading({ title: '正在同步云端...' });
+    const user = await app.requireLogin({ redirect: false });
+    if (!user || !user._id) {
+      wx.showToast({ title: '请先登录教师账号', icon: 'none' });
+      return;
+    }
 
-    // 🌟 核心：往数据库里加数据
-    db.collection('resources').add({
-      data: {
-        title: title,
-        points: parseInt(points), // 转成数字
-        content: content,
-        link: link,
-        type: typeList[typeIndex],
-        downloads: 0,
-        createTime: db.serverDate(), // 获取服务器时间
-        author: '官方管理员'
-      }
-    }).then(res => {
+    const { orgId, orgName } = getOrgScope(user);
+
+    wx.showLoading({ title: '发布中...' });
+    try {
+      await db.collection('resources').add({
+        data: {
+          title: title.trim(),
+          points: Number(points) || 0,
+          content: content.trim(),
+          link: link.trim(),
+          type: typeList[typeIndex],
+          downloads: 0,
+          status: 'published',
+          orgId,
+          orgName,
+          authorId: user._id,
+          authorName: user.name || user.nickname || '教师',
+          createTime: db.serverDate(),
+        },
+      });
+
       wx.hideLoading();
-      wx.showToast({ title: '发布成功！', icon: 'success' });
-      // 发布成功后延迟返回
-      setTimeout(() => { wx.navigateBack(); }, 1500);
-    }).catch(err => {
+      wx.showToast({ title: '资源已发布', icon: 'success' });
+      setTimeout(() => wx.navigateBack(), 500);
+    } catch (error) {
       wx.hideLoading();
-      wx.showToast({ title: '发布失败，请重试', icon: 'none' });
-    });
-  }
+      console.error('submit resource error', error);
+      wx.showToast({ title: '发布失败，请稍后重试', icon: 'none' });
+    }
+  },
 });

@@ -1,47 +1,90 @@
+const app = getApp();
 const db = wx.cloud.database();
+const { formatDateTime } = require('../../../utils/date');
+
+function getCategory(item = {}) {
+  const categoryKey = item.categoryKey || '';
+  if (categoryKey) return categoryKey;
+  const type = `${item.type || ''}${item.title || ''}`.toLowerCase();
+  if (type.includes('政策')) return 'policy';
+  if (type.includes('视频') || type.includes('video')) return 'video';
+  return 'material';
+}
 
 Page({
   data: {
-    myList: [],
-    isLoading: true
+    list: [],
+    displayList: [],
+    loading: true,
+    filter: 'all',
   },
 
   onShow() {
     this.loadMyBag();
   },
 
-  loadMyBag() {
-    // 兼容不同的名字，拿到当前登录的用户
-    const user = wx.getStorageSync('currentUser') || wx.getStorageSync('userInfo');
-    
+  async loadMyBag() {
+    const user = await app.requireLogin();
     if (!user || !user._id) {
-      this.setData({ isLoading: false });
+      this.setData({ loading: false, list: [], displayList: [] });
       return;
     }
 
-    // 🌟 核心修改：直接去咱们新建的 my_resources 表里查这个人买过的所有资料
-    db.collection('resources').where({
-      userId: user._id
-    }).orderBy('buyTime', 'desc').get().then(res => {
-      this.setData({
-        myList: res.data,
-        isLoading: false
-      });
-    }).catch(err => {
-      console.error("翻找书包失败", err);
-      this.setData({ isLoading: false });
-      wx.showToast({ title: '网络异常', icon: 'none' });
+    try {
+      const res = await db.collection('my_resources')
+        .where({ userId: user._id })
+        .orderBy('buyTime', 'desc')
+        .limit(100)
+        .get()
+        .catch(async () => (
+          db.collection('resources').where({ userId: user._id }).orderBy('buyTime', 'desc').limit(100).get()
+        ));
+
+      const list = (res.data || []).map((item) => ({
+        ...item,
+        categoryKey: getCategory(item),
+        timeText: formatDateTime(item.buyTime || item.createTime),
+      }));
+
+      this.setData({ loading: false, list }, () => this.applyFilter());
+    } catch (error) {
+      console.error('load my resources error', error);
+      this.setData({ loading: false, list: [], displayList: [] });
+      wx.showToast({ title: '加载资料失败', icon: 'none' });
+    }
+  },
+
+  changeFilter(e) {
+    const filter = e.currentTarget.dataset.filter;
+    if (!filter || filter === this.data.filter) return;
+    this.setData({ filter }, () => this.applyFilter());
+  },
+
+  applyFilter() {
+    const displayList = this.data.filter === 'all'
+      ? this.data.list
+      : this.data.list.filter((item) => item.categoryKey === this.data.filter);
+
+    this.setData({ displayList });
+  },
+
+  copyLink(e) {
+    const item = e.currentTarget.dataset.item;
+    const link = item.fileId || item.link;
+    if (!link) {
+      wx.showToast({ title: '这份资料暂无提取链接，请联系老师', icon: 'none' });
+      return;
+    }
+
+    wx.setClipboardData({
+      data: link,
+      success: () => {
+        wx.showToast({ title: '链接已复制', icon: 'success' });
+      },
     });
   },
 
-  // 一键复制链接
-  copyLink(e) {
-    const link = e.currentTarget.dataset.link;
-    wx.setClipboardData({
-      data: link || '链接生成中，请稍后或联系老师',
-      success: () => {
-        wx.showToast({ title: '已复制链接，快去下载吧', icon: 'none' });
-      }
-    });
-  }
+  goToResourceCenter() {
+    wx.navigateTo({ url: '/pages/student/resourceDetail/resourceDetail' });
+  },
 });

@@ -1,46 +1,102 @@
-<view class="saas-container">
-  
-  <view class="header-section">
-    <view class="user-info-box" bindtap="goToProfile">
-      <image class="user-avatar" src="{{userInfo.avatarUrl || userInfo.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=guest'}}"></image>
-      <view class="user-text">
-        <view class="user-name">{{userInfo.nickname || userInfo.name || '请点击登录'}}</view>
-        <view class="user-role" wx:if="{{userInfo._id}}">{{userInfo.orgName ? '🚩 ' + userInfo.orgName : '青源智盟学员'}}</view>
+<view class="page">
+  <view class="hero-section">
+    <view class="hero-top">
+      <view class="user-info-box" bindtap="goToProfile">
+        <image class="user-avatar" src="{{userInfo.avatarUrl || userInfo.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=guest'}}"></image>
+        <view class="user-text">
+          <view class="user-name">{{userInfo.nickname || userInfo.name || '欢迎来到青源智盟'}}</view>
+          <view class="user-role">{{userInfo.orgName || '绑定微信后可自动回流、加入专属校区'}}</view>
+        </view>
+      </view>
+      <view class="hero-score">
+        <text class="hero-score-value">{{overview.score || 0}}</text>
+        <text class="hero-score-label">当前积分</text>
       </view>
     </view>
 
     <view class="search-box">
       <icon type="search" size="16" color="#999"></icon>
-      <input class="search-input" type="text" placeholder="搜政策、搜真题、搜笔记..." confirm-type="search" model:value="{{keyword}}" bindconfirm="onSearch" />
+      <input
+        class="search-input"
+        type="text"
+        value="{{keyword}}"
+        placeholder="搜政策、搜资料、搜课程、搜动态"
+        confirm-type="search"
+        bindinput="handleKeywordInput"
+        bindconfirm="onSearch"
+      />
       <icon type="clear" size="16" color="#ccc" wx:if="{{keyword}}" bindtap="clearSearch" class="clear-icon"></icon>
+    </view>
+
+    <view class="overview-grid">
+      <view class="overview-card">
+        <text class="overview-value">{{overview.totalLearned || 0}}</text>
+        <text class="overview-label">已学词数</text>
+      </view>
+      <view class="overview-card">
+        <text class="overview-value">{{overview.unreadCount || 0}}</text>
+        <text class="overview-label">未读提醒</text>
+      </view>
+      <view class="overview-card">
+        <text class="overview-value">{{overview.resourceCount || 0}}</text>
+        <text class="overview-label">已领资料</text>
+      </view>
+      <view class="overview-card">
+        <text class="overview-value">{{overview.pendingOrders || 0}}</text>
+        <text class="overview-label">待发货</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="task-section">
+    <view class="section-header">
+      <text class="section-title">今日任务中心</text>
+      <text class="section-sub">把今天最值得做的事放在最前面</text>
+    </view>
+
+    <view class="task-grid">
+      <view class="task-card {{item.highlight ? 'highlight' : ''}}" wx:for="{{taskCards}}" wx:key="key" data-action="{{item.action}}" bindtap="openTask">
+        <view class="task-card-top">
+          <text class="task-title">{{item.title}}</text>
+          <text class="task-value">{{item.value}}</text>
+        </view>
+        <text class="task-desc">{{item.desc}}</text>
+      </view>
     </view>
   </view>
 
   <view class="nav-grid">
-    <view class="nav-item" bindtap="navToPolicy"><view class="icon-box bg-blue"><text class="emoji-icon">⚖️</text></view><text class="nav-text">政策解读</text></view>
-    <view class="nav-item" bindtap="navToResource"><view class="icon-box bg-green"><text class="emoji-icon">📚</text></view><text class="nav-text">资源贴吧</text></view>
+    <view class="nav-item" bindtap="navToPolicy"><view class="icon-box bg-blue"><text class="emoji-icon">🧭</text></view><text class="nav-text">政策解读</text></view>
+    <view class="nav-item" bindtap="navToResource"><view class="icon-box bg-green"><text class="emoji-icon">📚</text></view><text class="nav-text">资料中心</text></view>
     <view class="nav-item" bindtap="navToVideo"><view class="icon-box bg-purple"><text class="emoji-icon">🎬</text></view><text class="nav-text">精品视频</text></view>
-    <view class="nav-item" bindtap="navToPoints"><view class="icon-box bg-yellow"><text class="emoji-icon">💰</text></view><text class="nav-text">积分兑换</text></view>
-    <view class="nav-item" bindtap="navToSchools"><view class="icon-box bg-orange"><text class="emoji-icon">🏢</text></view><text class="nav-text">入驻机构</text></view>
+    <view class="nav-item" bindtap="navToPoints"><view class="icon-box bg-yellow"><text class="emoji-icon">🎁</text></view><text class="nav-text">积分兑换</text></view>
+    <view class="nav-item" bindtap="navToSchools"><view class="icon-box bg-orange"><text class="emoji-icon">🏫</text></view><text class="nav-text">入驻机构</text></view>
   </view>
 
-  <view class="notice-bar">
-    <view class="notice-tag">热议</view>
+  <view class="notice-bar" wx:if="{{notices.length > 0}}">
+    <view class="notice-tag">今日提醒</view>
     <swiper vertical="true" autoplay="true" circular="true" class="notice-swiper">
-      <swiper-item><text class="notice-text">某同学刚用积分兑换了专属体验课...</text></swiper-item>
-      <swiper-item><text class="notice-text">2026年本市小升初最新政策已发布！</text></swiper-item>
+      <swiper-item wx:for="{{notices}}" wx:key="id">
+        <text class="notice-text">{{item.text}}</text>
+      </swiper-item>
     </swiper>
   </view>
 
   <view class="circle-section">
-    <view class="section-header">
-      <text class="section-title">班级圈</text>
-      <text class="section-sub">发现牛人，立刻关注</text>
+    <view class="section-header with-border">
+      <text class="section-title">校园动态圈</text>
+      <text class="section-sub">发现同频同学，顺手点个赞或关注</text>
     </view>
-    <view class="moment-list">
+
+    <view class="empty-moments" wx:if="{{moments.length === 0 && !loadingMoments}}">
+      <text class="empty-moments-icon">🪐</text>
+      <text class="empty-moments-text">还没有动态，去发布第一条成长记录吧</text>
+    </view>
+
+    <view class="moment-list" wx:else>
       <view class="moment-item" wx:for="{{moments}}" wx:key="_id">
-        <image class="m-avatar" src="{{item.avatarUrl || item.avatar}}" bindtap="goToUserPage" data-userid="{{item.userId}}"></image>
-        
+        <image class="m-avatar" src="{{item.avatarUrl || item.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=moment'}}" bindtap="goToUserPage" data-userid="{{item.userId}}"></image>
+
         <view class="m-content-area">
           <view class="m-name-row">
             <view class="m-name">{{item.name}}</view>
@@ -48,10 +104,13 @@
               {{item.isFollowed ? '已关注' : '+ 关注'}}
             </view>
           </view>
+
           <view class="m-text">{{item.content}}</view>
+
           <view class="m-images" wx:if="{{item.images && item.images.length > 0}}">
-            <image class="m-img" wx:for="{{item.images}}" wx:for-item="img" wx:key="*this" src="{{img}}" mode="aspectFill"></image>
+            <image class="m-img" wx:for="{{item.images}}" wx:key="*this" wx:for-item="img" src="{{img}}" mode="aspectFill"></image>
           </view>
+
           <view class="m-footer">
             <text class="m-time">{{item.time}}</text>
             <view class="m-actions">
@@ -65,22 +124,38 @@
               </view>
             </view>
           </view>
+
           <view class="comment-area" wx:if="{{item.commentsList && item.commentsList.length > 0}}">
-            <view class="comment-item" wx:for="{{item.commentsList}}" wx:for-item="cmt" wx:key="time">
+            <view class="comment-item" wx:for="{{item.commentsList}}" wx:key="time" wx:for-item="cmt">
               <text class="c-name">{{cmt.name}}：</text>
               <text class="c-content">{{cmt.content}}</text>
             </view>
           </view>
         </view>
       </view>
+
+      <view class="load-more" wx:if="{{loadingMoments}}">加载中...</view>
+      <view class="load-more done" wx:elif="{{!hasMore && moments.length > 0}}">动态已经到底啦</view>
     </view>
   </view>
-  <view class="fab-btn" bindtap="goToPublish"><text class="fab-icon">+</text><text class="fab-text">发布</text></view>
+
+  <view class="fab-btn" bindtap="goToPublish">
+    <text class="fab-icon">+</text>
+    <text class="fab-text">发布</text>
+  </view>
 
   <view class="comment-mask" wx:if="{{showCommentInput}}" bindtap="closeComment"></view>
   <view class="comment-input-bar" wx:if="{{showCommentInput}}">
-    <input class="c-input" focus="{{showCommentInput}}" cursor-spacing="20" placeholder="善语结善缘..." bindinput="handleCommentInput" value="{{commentContent}}" confirm-type="send" bindconfirm="sendComment" />
+    <input
+      class="c-input"
+      focus="{{showCommentInput}}"
+      cursor-spacing="20"
+      placeholder="写下你的鼓励、看法或提问..."
+      bindinput="handleCommentInput"
+      value="{{commentContent}}"
+      confirm-type="send"
+      bindconfirm="sendComment"
+    />
     <view class="c-send-btn" bindtap="sendComment">发送</view>
   </view>
-
 </view>

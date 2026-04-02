@@ -1,28 +1,49 @@
-<view class="container">
-  <view class="tabs">
-    <view class="tab active">全部兑换</view>
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">我的订单</view>
+    <view class="hero-subtitle">可以按处理状态查看兑换进度，实物福利发货后也会收到消息提醒。</view>
   </view>
 
-  <view class="order-list">
-    <view class="empty" wx:if="{{orders.length === 0}}">
-      <text class="empty-icon">📦</text>
-      <text>还没有兑换过宝贝哦</text>
-    </view>
+  <view class="filter-row">
+    <view class="filter-chip {{filter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="changeFilter">全部</view>
+    <view class="filter-chip {{filter === 'pending' ? 'active' : ''}}" data-filter="pending" bindtap="changeFilter">待处理</view>
+    <view class="filter-chip {{filter === 'shipped' ? 'active' : ''}}" data-filter="shipped" bindtap="changeFilter">已发货</view>
+    <view class="filter-chip {{filter === 'completed' ? 'active' : ''}}" data-filter="completed" bindtap="changeFilter">已完成</view>
+  </view>
 
-    <view class="order-card" wx:for="{{orders}}" wx:key="_id">
-      <view class="order-head">
-        <text class="order-time">{{item.createTimeStr}}</text>
-        <text class="status-tag">{{item.status}}</text>
-      </view>
-      <view class="order-body">
-        <view class="item-info">
-          <text class="item-name">{{item.itemName}}</text>
-          <text class="item-price">消耗积分：{{item.price}}</text>
+  <view class="state-box" wx:if="{{loading}}">正在加载订单...</view>
+
+  <block wx:elif="{{displayOrders.length === 0}}">
+    <view class="empty-box">
+      <view class="empty-title">还没有订单</view>
+      <view class="empty-desc">去积分商城兑换内容或福利后，订单就会显示在这里。</view>
+    </view>
+  </block>
+
+  <view class="list" wx:else>
+    <view class="order-card" wx:for="{{displayOrders}}" wx:key="_id">
+      <view class="card-head">
+        <view>
+          <view class="order-title">{{item.itemName || '未命名商品'}}</view>
+          <view class="order-time">{{item.timeText}}</view>
         </view>
+        <view class="status-tag {{item.statusKey}}">{{item.statusText}}</view>
       </view>
-      <view class="order-foot" wx:if="{{item.address}}">
-        <text class="address-label">配送/备注信息：</text>
+
+      <view class="metric-row">
+        <view class="metric-pill">数量 {{item.quantity || 1}}</view>
+        <view class="metric-pill">积分 {{item.totalPoints || item.price || 0}}</view>
+        <view class="metric-pill">{{item.category || '兑换订单'}}</view>
+      </view>
+
+      <view class="address-box" wx:if="{{item.address}}">
+        <text class="address-label">收货信息</text>
         <text class="address-text">{{item.address}}</text>
+      </view>
+
+      <view class="address-box" wx:if="{{item.deliveryInfo}}">
+        <text class="address-label">发货备注</text>
+        <text class="address-text">{{item.deliveryInfo}}</text>
       </view>
     </view>
   </view>

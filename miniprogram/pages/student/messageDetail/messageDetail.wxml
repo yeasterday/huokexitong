@@ -1,0 +1,32 @@
+<view class="page" wx:if="{{message}}">
+  <view class="detail-card">
+    <view class="detail-top">
+      <text class="detail-tag">{{message.typeLabel}}</text>
+      <text class="detail-time">{{message.timeText}}</text>
+    </view>
+
+    <view class="detail-author">
+      <image
+        wx:if="{{message.senderAvatar}}"
+        class="author-avatar"
+        src="{{message.senderAvatar}}"
+        mode="aspectFill"
+      />
+      <view wx:else class="author-avatar placeholder">信</view>
+
+      <view class="author-info">
+        <text class="author-name">{{message.senderName || '系统消息'}}</text>
+        <text class="author-action">{{message.content ? '给你发来了一条具体内容' : '触发了一条提醒通知'}}</text>
+      </view>
+    </view>
+
+    <view class="detail-content" wx:if="{{message.content}}">
+      {{message.content}}
+    </view>
+
+    <view class="detail-quote" wx:if="{{message.momentText}}">
+      <text class="quote-label">关联内容</text>
+      <text class="quote-text">{{message.momentText}}</text>
+    </view>
+  </view>
+</view>

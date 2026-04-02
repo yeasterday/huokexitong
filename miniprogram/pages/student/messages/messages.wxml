@@ -1,25 +1,74 @@
-<view class="container">
-  <view class="empty-tip" wx:if="{{msgList.length === 0}}">
-    <view class="icon">📭</view>
-    <text>暂时没有新消息哦~</text>
+<view class="page">
+  <view class="summary-card">
+    <view>
+      <text class="summary-title">消息中心</text>
+      <text class="summary-subtitle">互动提醒、订单通知、系统动态都在这里</text>
+    </view>
+    <view class="summary-num">
+      <text class="summary-value">{{unreadCount}}</text>
+      <text class="summary-label">未读</text>
+    </view>
   </view>
 
-  <view class="msg-list" wx:else>
-    <view class="msg-item" wx:for="{{msgList}}" wx:key="_id">
-      <image class="m-avatar" src="{{item.senderAvatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=user'}}"></image>
-      <view class="m-content">
-        
-        <view class="m-header">
-          <text class="m-name">{{item.senderName}}</text>
-          <text class="m-action">{{item.type === 'like' ? '赞了你的动态 ❤️' : '评论了你的动态 💬'}}</text>
+  <view class="toolbar">
+    <scroll-view class="filter-scroll" scroll-x="true" enable-flex="true">
+      <view class="filter-list">
+        <view
+          wx:for="{{filters}}"
+          wx:key="key"
+          class="filter-chip {{activeFilter === item.key ? 'active' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="changeFilter"
+        >
+          {{item.label}}
         </view>
-        
-        <view class="m-text" wx:if="{{item.type !== 'like'}}">{{item.content}}</view>
-        
-        <view class="m-quote">我的动态："{{item.momentText}}"</view>
-        <view class="m-time">{{item.time}}</view>
+      </view>
+    </scroll-view>
+    <view class="toolbar-action {{unreadCount === 0 ? 'disabled' : ''}}" bindtap="markAllRead">
+      全部已读
+    </view>
+  </view>
 
+  <view class="empty-state" wx:if="{{messageList.length === 0 && !loading}}">
+    <view class="empty-icon">📭</view>
+    <text class="empty-title">这里暂时没有消息</text>
+    <text class="empty-desc">后续点赞、评论、订单发货和系统通知都会收进这里。</text>
+  </view>
+
+  <view class="message-list" wx:else>
+    <view class="message-card {{item.isRead ? 'read' : ''}}" wx:for="{{messageList}}" wx:key="_id" data-id="{{item._id}}" bindtap="openMessage">
+      <view class="message-avatar" style="background: {{item.accentColor}}22;">
+        <image
+          wx:if="{{item.senderAvatar}}"
+          class="message-avatar-img"
+          src="{{item.senderAvatar}}"
+          mode="aspectFill"
+        />
+        <text wx:else class="message-avatar-text" style="color: {{item.accentColor}};">{{item.metaShort}}</text>
+      </view>
+
+      <view class="message-main">
+        <view class="message-head">
+          <view class="message-title-wrap">
+            <text class="message-title">{{item.senderName || '系统消息'}}</text>
+            <text class="message-tag" style="color: {{item.accentColor}}; background: {{item.accentColor}}14;">{{item.metaLabel}}</text>
+          </view>
+          <text class="message-time">{{item.timeText}}</text>
+        </view>
+
+        <text class="message-action">{{item.actionText}}</text>
+
+        <text class="message-body" wx:if="{{item.content}}">{{item.content}}</text>
+        <text class="message-quote" wx:if="{{item.momentText}}">“{{item.momentText}}”</text>
+
+        <view class="message-foot">
+          <text class="message-read {{item.isRead ? 'read' : ''}}">{{item.isRead ? '已读' : '未读'}}</text>
+          <text class="message-link">查看详情 ></text>
+        </view>
       </view>
     </view>
+
+    <view class="load-more" wx:if="{{loading}}">加载中...</view>
+    <view class="load-more done" wx:elif="{{!hasMore}}">没有更多消息了</view>
   </view>
 </view>
