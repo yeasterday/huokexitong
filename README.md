@@ -619,3 +619,5 @@ huokexitong/
 - `miniprogram/pages/teacher/manageShop/manageShop.js`
 
 这几个文件基本可以最快帮助你理解整个系统的主线。
+
+测试信息
